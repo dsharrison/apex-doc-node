@@ -1,0 +1,19 @@
+{
+  "name": "apex-doc-node",
+  "version": "0.0.1",
+  "description": "A node.js implementation of ApexDoc.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://dsharrison@github.com/dsharrison/apex-doc-node.git"
+  },
+  "author": "Derrek Harrison",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dsharrison/apex-doc-node/issues"
+  },
+  "homepage": "https://github.com/dsharrison/apex-doc-node"
+}
