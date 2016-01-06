@@ -1,0 +1,65 @@
+<h1 class="page-header">{{name}} Class</h1>
+{{# description}}
+  <p>{{description}}</p>
+{{/description}}
+{{# hasProperties}}
+  <h3>Properties</h3>
+  <table class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <th>Scope</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{# properties}}
+        <tr>
+          <td>{{scope}}</td>
+          <td>{{name}}</td>
+          <td>{{description}}</td>
+        </tr>
+      {{/properties}}
+    </tbody>
+  </table>
+{{/hasProperties}}
+
+{{# hasMethods}}
+  <h3>Methods</h3>
+
+  {{# methods}}
+  <h4>{{name}}</h4>
+  {{# description}}
+    <p>{{description}}</p>
+  {{/description}}
+  <h5>Signature</h5>
+  <code>{{nameLine}}</code>
+    {{# return}}
+      <h5>Returns</h5>
+      <p>{{return}}</p>
+    {{/ return}}
+    {{# hasParams}}
+      <h5>Parameters</h5>
+      <table class="table table-condensed table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{# param}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{description}}</td>
+          </tr>
+        {{/ param}}
+        <tbody>
+      </table>
+    {{/hasParams}}
+  {{/ methods}}
+{{/ hasMethods}}
+
+{{# childClasses}}
+  {{ > class}}
+{{/ childClasses}}

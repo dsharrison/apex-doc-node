@@ -1,5 +1,8 @@
 {
+  "directory" : "_test_data/",
   "directory" : "/Users/derrek/bitbucket/renewals-application/src/classes/",
+  "company" : "Kinetic Growth",
+  "email" : "support@kineticgrowth.com",
   "scopes" : [
     "public",
     "global"

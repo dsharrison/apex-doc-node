@@ -20,7 +20,8 @@ var tokens = [
   },
   {
     'name': '@param',
-    'type': 'array'
+    'type': 'array-typed',
+    'model': 'ApexParameter'
   },
   {
     'name': '@description',
@@ -30,7 +31,11 @@ var tokens = [
 
 ApexMethod.prototype.fillDetails = function(file_data_line, commentList, i) {
   this.setNameLine(file_data_line, i);
+  this.parseName();
   helper.parseTokens(this, tokens, commentList);
+  if(this.param) {
+    this.hasParams = true;
+  }
 }
 
 ApexMethod.prototype.setNameLine = function(name_line_string, line_number) {
@@ -43,6 +48,17 @@ ApexMethod.prototype.setNameLine = function(name_line_string, line_number) {
   this.nameLine = name_line_string.trim();
   this.nameLineNumber = line_number;
   this.parseScope();
+}
+
+ApexMethod.prototype.parseName = function() {
+  this.name = '';
+  var name_line = this.nameLine;
+  if(name_line) {
+    var index_l = name_line.indexOf('(');
+    if(index_l >= 0) {
+      this.name = helper.getPreviousWord(name_line, index_l);
+    }
+  }
 }
 
 ApexMethod.prototype.parseScope = function() {

@@ -16,11 +16,14 @@ public class TestClass {
   }
 
   /**
-   * This is my test method.
-   * @return Always returns 0
+   * This is my sample method!
+   *
+   * @param  param        The integer to method.
+   * 
+   * @return              Always returns param + 1;
    */
-  public Integer myMethod() {
-    return 0;
+  public Integer myMethod(Integer param) {
+    return param + 1;
   }
 
   public TestClass() {

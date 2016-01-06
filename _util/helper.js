@@ -1,4 +1,5 @@
 var config = require('./config.js');
+var fs = require('fs');
 
 var getScopeFromString = function(string_to_search) {
   string_to_search = string_to_search.toLowerCase();
@@ -35,12 +36,25 @@ var parseTokens = function(model, tokens, commentList) {
         token_obj = x_token_obj;
         token = x_token;
         token_name = x_token_name;
+        comment = comment.replace('/**', '').trim();
+        comment = comment.replace('*/', '').trim();
+        comment = comment.replace('*', '').trim();
         var comment_trimmed = comment.substring(token_start + token.length).trim();
         if(x_token_obj['type'] == 'array') {
           if(!model[token_name]) {
             model[token_name] = [];
           }
           model[token_name].push(comment_trimmed);
+        }
+        else if(x_token_obj['type'] == 'array-typed') {
+          if(!model[token_name]) {
+            var token_model = token_obj['model'];
+            if(typeof this[token_model] === 'undefined') {
+              this[token_model] = require('../_models/' + token_model);
+            }
+            model[token_name] = new this[token_model](comment_trimmed);
+          }
+
         }
         else {
           model[token_name] = comment_trimmed;
@@ -57,10 +71,13 @@ var parseTokens = function(model, tokens, commentList) {
       }
       comment = comment.replace('/**', '').trim();
       comment = comment.replace('*/', '').trim();
-      comment = comment.replace('* ', '').trim();
+      comment = comment.replace('*', '').trim();
       if(comment.length > 0) {
-        if(token_obj && token_obj['type'] == 'array') {
+        if(token_obj && token_obj['type'] == 'array' && model[token_name][model[token_name.length - 1]]) {
           model[token_name][model[token_name.length - 1]] += comment.trim();
+        }
+        if(token_obj && token_obj['type'] == 'array-typed' && model[token_name][model[token_name.length - 1]]) {
+          model[token_name][model[token_name.length - 1]].addLine(comment.trim());
         }
         else {
           if(!model[token_name]) {
@@ -88,3 +105,60 @@ var trimForComments = function(string_to_trim) {
   return string_to_trim;
 }
 module.exports.trimForComments = trimForComments;
+
+var getPreviousWord = function(str, index) {
+  var result;
+  if(str && str.length > index) {
+    var index_f;
+    var index_l;
+    for(index_f = index - 1, index_l = 0; index_f >= 0; index_f--) {
+      if(index_l == 0) {
+        if(str.charAt(index_f) == ' ') {
+          continue;
+        }
+        index_l = index_f + 1;
+      }
+      else if(str.charAt(index_f) == ' ') {
+        index_f++;
+        break;
+      }
+    }
+    if(index_f >= 0) {
+      result = str.substring(index_f, index_l);
+    }
+  }
+
+  return result;
+}
+module.exports.getPreviousWord = getPreviousWord;
+
+var copyFile = function(source, target, cb) {
+
+  console.log('Copying file ' + source + ' to ' + target);
+
+  var cbCalled = false;
+
+  var rd = fs.createReadStream(source);
+  rd.on("error", function(err) {
+    done(err);
+  });
+  var wr = fs.createWriteStream(target);
+  wr.on("error", function(err) {
+    done(err);
+  });
+  wr.on("close", function(ex) {
+    done();
+  });
+  rd.pipe(wr);
+
+  function done(err) {
+    if(err) {
+      throw err;
+    }
+    if (!cbCalled && typeof cb !== 'undefined') {
+      cb(err);
+      cbCalled = true;
+    }
+  }
+}
+module.exports.copyFile = copyFile;

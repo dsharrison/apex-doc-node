@@ -36,4 +36,5 @@ fs.readdir(config.directory, function(err, files){
   });
 
   fileOutput.writeResult(classModels);
+  fileOutput.copyResources();
 });

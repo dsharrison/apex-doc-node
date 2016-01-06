@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  {{> head}}
+
+  <body>
+    {{> header}}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          {{> sidebar}}
+        </div>
+        <div class="col-md-9">
+          <content id="primary">
+            {{#currentClass}}
+              {{> class}}
+            {{/currentClass}}
+            {{^currentClass}}
+              {{> index}}
+            {{/currentClass}}
+          </content>
+        </div>
+      </div> <!-- /.row -->
+    </div> <!-- /.container-fluid -->
+    {{> footer}}
+  </body>
+</html>

@@ -5,6 +5,9 @@ var helper = require('../_util/helper');
 // Constructor
 function ApexClass(classModelParent) {
   //this.classModelParent = classModelParent;
+  if(classModelParent) {
+    this.parentName = classModelParent.name;
+  }
   this.isInterface = false;
   this.childClasses = [];
   this.methods = [];
@@ -47,7 +50,43 @@ ApexClass.prototype.fillDetails = function(file_data_line, commentList, i) {
 ApexClass.prototype.setNameLine = function(name_line_string, line_number) {
   this.nameLine = name_line_string.trim();
   this.nameLineNumber = line_number;
+
+  this.parseName();
+
   this.parseScope();
+}
+
+ApexClass.prototype.parseName = function() {
+  var parent_name = '';
+  var name_line = this.nameLine;
+  if(this.parentName) {
+    parent_name = this.parentName + '.';
+  }
+  this.name = parent_name;
+  if(name_line) {
+    var index_f = name_line.toLowerCase().indexOf('class ');
+    var offset_f = 6;
+
+    if(index_f == -1) {
+      index_f = name_line.toLowerCase().indexOf('interface ');
+      offset_f = 10;
+    }
+    if(index_f >= 0) {
+      name_line = name_line.substring(index_f + offset_f).trim();
+    }
+    var index_l = name_line.indexOf(' ');
+    if(index_l == -1) {
+      this.name += name_line;
+    }
+    else {
+      try {
+        this.name += name_line.substring(0, index_l);
+      }
+      catch(err) {
+        this.name += name_line.substring(name_line.lastIndexOf(' ') + 1);
+      }
+    }
+  }
 }
 
 ApexClass.prototype.addChildClass = function(childClass) {
@@ -56,10 +95,12 @@ ApexClass.prototype.addChildClass = function(childClass) {
 
 ApexClass.prototype.addMethod = function(method) {
   this.methods.push(method);
+  this.hasMethods = true;
 }
 
 ApexClass.prototype.addProperty = function(property) {
   this.properties.push(property);
+  this.hasProperties = true;
 }
 
 ApexClass.prototype.parseScope = function() {

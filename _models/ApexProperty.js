@@ -15,6 +15,8 @@ function ApexProperty() {
 ApexProperty.prototype.fillDetails = function(file_data_line, commentList, i) {
   this.setNameLine(file_data_line, i);
   this.setName();
+  this.parseScope();
+  this.parseName();
   helper.parseTokens(this, tokens, commentList);
 }
 
@@ -50,6 +52,17 @@ ApexProperty.prototype.parseScope = function() {
   this.scope = null;
   if(this.nameLine != null) {
     this.scope = helper.getScopeFromString(this.nameLine);
+  }
+}
+
+ApexProperty.prototype.parseName = function() {
+  this.name = '';
+  var name_line = this.nameLine;
+  if(name_line) {
+    var index_l = name_line.lastIndexOf(' ');
+    if(index_l >= 0) {
+      this.name = name_line.substring(index_l + 1);
+    }
   }
 }
 
