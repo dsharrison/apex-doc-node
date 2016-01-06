@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/dsharrison/apex-doc-node/issues"
   },
-  "homepage": "https://github.com/dsharrison/apex-doc-node"
+  "homepage": "https://github.com/dsharrison/apex-doc-node",
+  "devDependencies": {
+    "mustache": "^2.2.1"
+  }
 }

@@ -76,3 +76,15 @@ var parseTokens = function(model, tokens, commentList) {
   }
 }
 module.exports.parseTokens = parseTokens;
+
+var trimForComments = function(string_to_trim) {
+  // Check to see if we have a single line comment
+  var comment_index = string_to_trim.indexOf('//');
+
+  // If we do, take only the part of the line before it
+  if(comment_index > -1) {
+    string_to_trim = string_to_trim.substring(0, comment_index);
+  }
+  return string_to_trim;
+}
+module.exports.trimForComments = trimForComments;
