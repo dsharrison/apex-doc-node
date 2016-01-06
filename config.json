@@ -4,7 +4,6 @@
   "company" : "Kinetic Growth",
   "email" : "support@kineticgrowth.com",
   "scopes" : [
-    "public",
     "global"
   ]
 }

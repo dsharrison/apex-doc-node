@@ -8,6 +8,8 @@ var mst_templates = {};
 var template_dir = './_templates/';
 var docs_dir = './docs/';
 
+helper.refreshFolder(docs_dir);
+
 var writeResult = function(classModels) {
   fs.writeFile('result.json', JSON.stringify(classModels, null, '  '), function(err) {
     if(err) {
@@ -59,6 +61,7 @@ module.exports.writeResult = writeResult;
 
 var copyResources = function() {
   var resources_dir = './_resources/';
+  fs.mkdirSync(docs_dir + 'resources/');
   var files = fs.readdirSync(resources_dir);
   files.forEach(function(file_name){
     helper.copyFile(resources_dir + file_name, docs_dir + 'resources/' + file_name);
