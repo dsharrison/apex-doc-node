@@ -55,9 +55,12 @@ ApexMethod.prototype.parseName = function() {
   var name_line = this.nameLine;
   if(name_line) {
     var index_l = name_line.indexOf('(');
+    var index_e = name_line.indexOf(')');
     if(index_l >= 0) {
       this.name = helper.getPreviousWord(name_line, index_l);
     }
+    this.nameWithParams = this.name;
+    this.nameWithParams += name_line.substring(index_l, index_e + 1);
   }
 }
 

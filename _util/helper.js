@@ -22,6 +22,33 @@ var parseTokens = function(model, tokens, commentList) {
   var token_obj;
   var token;
   var token_name;
+
+  // Initialize token properties on the object
+  for(var x = 0; x < tokens.length; x++) {
+    var x_token_obj = tokens[x];
+    var x_token = x_token_obj.name;
+    var x_token_name = x_token.replace('@', '');
+    if(x_token_obj['type'] == 'array') {
+      if(!model[x_token_name]) {
+        model[x_token_name] = [];
+      }
+    }
+    else if(x_token_obj['type'] == 'array-typed') {
+      if(!model[x_token_name]) {
+        var token_model = x_token_obj['model'];
+        if(typeof this[token_model] === 'undefined') {
+          this[token_model] = require('../_models/' + token_model);
+        }
+        model[x_token_name] = null;
+      }
+
+    }
+    else {
+      model[x_token_name] = null;
+    }
+  }
+
+  // Loop through comment lines looking for tokens
   for(var i = 0; i < commentList.length; i++) {
     var comment = commentList[i].trim();
     var token_start;

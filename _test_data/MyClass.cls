@@ -16,10 +16,13 @@ public class TestClass {
   }
 
   /**
-   * This is my sample method!
+   * This is my sample method with a short description.
+   * <p>
+   * This is a longer description of the functionality provided
+   * by the method!
    *
    * @param  param        The integer to method.
-   * 
+   *
    * @return              Always returns param + 1;
    */
   public Integer myMethod(Integer param) {

@@ -104,7 +104,7 @@ var processFile = function(file_name, file_data) {
       //create a new class model
       var newClassModel = new ApexClassModel(classModelParent);
       newClassModel.fillDetails(file_data_line, commentList, i);
-      commentList = [];
+      commentList.clear();
 
       // keep track of the new class, as long as it wasn't a single liner {}
       // but handle not having any curlies on the class line!
@@ -133,7 +133,7 @@ var processFile = function(file_name, file_data) {
       var methodModel = new ApexMethodModel();
       methodModel.fillDetails(file_data_line, commentList, i);
       classModel.addMethod(methodModel);
-      commentList = [];
+      commentList.clear();
       continue;
     }
 
@@ -152,7 +152,10 @@ var processFile = function(file_name, file_data) {
       var propertyModel = new ApexPropertyModel();
       propertyModel.fillDetails(file_data_line, commentList, i);
       classModel.addProperty(propertyModel);
-      commentList = [];
+      commentList.clear();
+    }
+    else {
+      commentList.clear();
     }
   }
 

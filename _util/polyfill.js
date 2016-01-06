@@ -16,13 +16,20 @@ if(!String.prototype.endsWith) {
       return lastIndex !== -1 && lastIndex === position;
   };
 }
+if (!String.prototype.includes) {
+  String.prototype.includes = function() {'use strict';
+    return String.prototype.indexOf.apply(this, arguments) !== -1;
+  };
+}
 if(!Array.prototype.peek) {
   Array.prototype.peek = function() {
     return this.slice(-1).pop();
   }
 }
-if (!String.prototype.includes) {
-  String.prototype.includes = function() {'use strict';
-    return String.prototype.indexOf.apply(this, arguments) !== -1;
-  };
+if(!Array.prototype.clear) {
+  Array.prototype.clear = function() {
+    while(this.length > 0) {
+      this.pop();
+    }
+  }
 }

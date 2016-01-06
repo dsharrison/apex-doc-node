@@ -21,3 +21,14 @@ h1,h2,h3,h4,h5,h6 {
 footer {
   padding: 1em 0;
 }
+.method,
+.property {
+  margin-bottom: 2em;
+}
+code {
+  background-color: inherit;
+  color: rgb(52, 73, 94);
+}
+.list-group-item {
+  padding: 5px 10px;
+}

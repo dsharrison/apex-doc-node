@@ -11,7 +11,11 @@ function ApexClass(classModelParent) {
   this.isInterface = false;
   this.childClasses = [];
   this.methods = [];
+  this.hasMethods = false;
+  this.constructors = [];
+  this.hasConstructors = false;
   this.properties = [];
+  this.hasProperties = false;
 }
 
 var tokens = [
@@ -94,8 +98,14 @@ ApexClass.prototype.addChildClass = function(childClass) {
 }
 
 ApexClass.prototype.addMethod = function(method) {
-  this.methods.push(method);
-  this.hasMethods = true;
+  if(method.name == this.name) {
+    this.constructors.push(method);
+    this.hasConstructors = true;
+  }
+  else {
+    this.methods.push(method);
+    this.hasMethods = true;
+  }
 }
 
 ApexClass.prototype.addProperty = function(property) {

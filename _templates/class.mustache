@@ -1,65 +1,141 @@
 <h1 class="page-header">{{name}} Class</h1>
 {{# description}}
-  <p>{{description}}</p>
+  <p>{{{description}}}</p>
 {{/description}}
+<h3>{{name}} Fields</h3>
 {{# hasProperties}}
-  <h3>Properties</h3>
-  <table class="table table-condensed table-striped">
-    <thead>
-      <tr>
-        <th>Scope</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{# properties}}
-        <tr>
-          <td>{{scope}}</td>
-          <td>{{name}}</td>
-          <td>{{description}}</td>
-        </tr>
-      {{/properties}}
-    </tbody>
-  </table>
-{{/hasProperties}}
-
-{{# hasMethods}}
-  <h3>Methods</h3>
-
-  {{# methods}}
-  <h4>{{name}}</h4>
-  {{# description}}
-    <p>{{description}}</p>
-  {{/description}}
-  <h5>Signature</h5>
-  <code>{{nameLine}}</code>
-    {{# return}}
-      <h5>Returns</h5>
-      <p>{{return}}</p>
-    {{/ return}}
-    {{# hasParams}}
-      <h5>Parameters</h5>
-      <table class="table table-condensed table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
+  The following are fields for <code>{{name}}</code>.
+  <ul>
+    {{# properties}}
+      <li>
+        <a href="#property-{{name}}">{{name}}</a>
+        <br />
+        {{# description}}
+          <p>{{{description}}}</p>
+        {{/ description}}
+        {{^ description}}
+          <p><em>No description provided</em></p>
+        {{/ description}}
+      </li>
+    {{/ properties}}
+  </ul>
+  {{# properties}}
+    <div id="property-{{name}}" class="property">
+      <h4>{{name}}</h4>
+      {{# description}}
+      <p>{{{description}}}</p>
+      {{/ description}}
+      {{^ description}}
+        <p><em>No description provided</em></p>
+      {{/ description}}
+      <h5>Signature</h5>
+      <p><code>{{nameLine}}</code></p>
+      <h5>Property Value</h5>
+      {{# type}}
+      <p>Type: {{type}}</p>
+      {{/ type}}
+    </div>
+  {{/properties}}
+{{/ hasProperties}}
+{{^ hasProperties}}
+  <p><em>This class has no properties.</em></p>
+{{/ hasProperties}}
+<h3>{{name}} Constructors</h3>
+{{# hasConstructors}}
+  The following are constructors for <code>{{name}}</code>.
+  <ul>
+    {{# constructors}}
+      <li>
+        <a href="#constructor-{{name}}">{{nameWithParams}}</a>
+        <br />
+        {{# description}}
+          <p>{{{description}}}</p>
+        {{/ description}}
+        {{^ description}}
+          <p><em>No description provided</em></p>
+        {{/ description}}
+      </li>
+    {{/ constructors}}
+  </ul>
+  {{# constructors}}
+  <div id="constructor-{{name}}" class="method">
+    <h4>{{nameWithParams}}</h4>
+    {{# description}}
+      <p>{{{description}}}</p>
+    {{/description}}
+    {{^ description}}
+      <p><em>No description provided</em></p>
+    {{/ description}}
+    <h5>Signature</h5>
+    <code>{{nameLine}}</code>
+      {{# return}}
+        <h5>Returns</h5>
+        <p>{{return}}</p>
+      {{/ return}}
+      {{# hasParams}}
+        <h5>Parameters</h5>
         {{# param}}
-          <tr>
-            <td>{{name}}</td>
-            <td>{{description}}</td>
-          </tr>
+          <em>{{name}}</em><br />
+          {{{description}}}
+          {{^ description}}
+            <em>No description provided</em>
+          {{/ description}}
         {{/ param}}
-        <tbody>
-      </table>
-    {{/hasParams}}
+      {{/hasParams}}
+    </div>
+  {{/ constructors}}
+{{/ hasConstructors}}
+{{^ hasConstructors}}
+  <p><em>This class cannot be constructed.</em></p>
+{{/ hasConstructors}}
+<h3>{{name}} Methods</h3>
+{{# hasMethods}}
+  The following are methods for <code>{{name}}</code>.
+  <ul>
+    {{# methods}}
+      <li>
+        <a href="#method-{{name}}">{{nameWithParams}}</a>
+        <br />
+        {{# description}}
+          <p>{{{description}}}</p>
+        {{/ description}}
+        {{^ description}}
+          <p><em>No description provided</em></p>
+        {{/ description}}
+      </li>
+    {{/ methods}}
+  </ul>
+  {{# methods}}
+  <div id="method-{{name}}" class="method">
+    <h4>{{nameWithParams}}</h4>
+    {{# description}}
+      <p>{{{description}}}</p>
+    {{/description}}
+    {{^ description}}
+      <p><em>No description provided</em></p>
+    {{/ description}}
+    <h5>Signature</h5>
+    <code>{{nameLine}}</code>
+      {{# return}}
+        <h5>Returns</h5>
+        <p>{{return}}</p>
+      {{/ return}}
+      {{# hasParams}}
+        <h5>Parameters</h5>
+        {{# param}}
+          <em>{{name}}</em><br />
+          {{{description}}}
+          {{^ description}}
+            <em>No description provided</em>
+          {{/ description}}
+        {{/ param}}
+      {{/hasParams}}
+    </div>
   {{/ methods}}
 {{/ hasMethods}}
-
+{{^ hasMethods}}
+  <p><em>This class has no methods.</em></p>
+{{/ hasMethods}}
 {{# childClasses}}
   {{ > class}}
 {{/ childClasses}}
