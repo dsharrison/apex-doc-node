@@ -29,6 +29,12 @@ public class TestClass {
     return param + 1;
   }
 
+  /**
+   * Standard constructor.
+   *
+   * @example 
+   * TestClass t = new TestClass();
+   */
   public TestClass() {
     // Constructor
   }

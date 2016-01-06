@@ -19,6 +19,10 @@ var tokens = [
     'type': 'single'
   },
   {
+    'name': '@example',
+    'type': 'single'
+  },
+  {
     'name': '@param',
     'type': 'array-typed',
     'model': 'ApexParameter'

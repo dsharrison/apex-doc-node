@@ -2,7 +2,7 @@
 {{# description}}
   <p>{{{description}}}</p>
 {{/description}}
-<h3>{{name}} Fields</h3>
+<h2>{{name}} Fields</h2>
 {{# hasProperties}}
   The following are fields for <code>{{name}}</code>.
   <ul>
@@ -21,16 +21,16 @@
   </ul>
   {{# properties}}
     <div id="property-{{name}}" class="property">
-      <h4>{{name}}</h4>
+      <h3>{{name}}</h3>
       {{# description}}
       <p>{{{description}}}</p>
       {{/ description}}
       {{^ description}}
         <p><em>No description provided</em></p>
       {{/ description}}
-      <h5>Signature</h5>
+      <h4>Signature</h4>
       <p><code>{{nameLine}}</code></p>
-      <h5>Property Value</h5>
+      <h4>Property Value</h4>
       {{# type}}
       <p>Type: {{type}}</p>
       {{/ type}}
@@ -40,7 +40,7 @@
 {{^ hasProperties}}
   <p><em>This class has no properties.</em></p>
 {{/ hasProperties}}
-<h3>{{name}} Constructors</h3>
+<h2>{{name}} Constructors</h2>
 {{# hasConstructors}}
   The following are constructors for <code>{{name}}</code>.
   <ul>
@@ -59,21 +59,21 @@
   </ul>
   {{# constructors}}
   <div id="constructor-{{name}}" class="method">
-    <h4>{{nameWithParams}}</h4>
+    <h3>{{nameWithParams}}</h3>
     {{# description}}
       <p>{{{description}}}</p>
     {{/description}}
     {{^ description}}
       <p><em>No description provided</em></p>
     {{/ description}}
-    <h5>Signature</h5>
+    <h4>Signature</h4>
     <code>{{nameLine}}</code>
       {{# return}}
-        <h5>Returns</h5>
+        <h4>Returns</h4>
         <p>{{return}}</p>
       {{/ return}}
       {{# hasParams}}
-        <h5>Parameters</h5>
+        <h4>Parameters</h4>
         {{# param}}
           <em>{{name}}</em><br />
           {{{description}}}
@@ -82,13 +82,17 @@
           {{/ description}}
         {{/ param}}
       {{/hasParams}}
+      {{# example}}
+        <h4>Example</h4>
+        <pre><code>{{{example}}}</code></pre>
+      {{/ example}}
     </div>
   {{/ constructors}}
 {{/ hasConstructors}}
 {{^ hasConstructors}}
   <p><em>This class cannot be constructed.</em></p>
 {{/ hasConstructors}}
-<h3>{{name}} Methods</h3>
+<h2>{{name}} Methods</h2>
 {{# hasMethods}}
   The following are methods for <code>{{name}}</code>.
   <ul>
@@ -107,30 +111,34 @@
   </ul>
   {{# methods}}
   <div id="method-{{name}}" class="method">
-    <h4>{{nameWithParams}}</h4>
+    <h3>{{nameWithParams}}</h3>
     {{# description}}
       <p>{{{description}}}</p>
     {{/description}}
     {{^ description}}
       <p><em>No description provided</em></p>
     {{/ description}}
-    <h5>Signature</h5>
+    <h4>Signature</h4>
     <code>{{nameLine}}</code>
-      {{# return}}
-        <h5>Returns</h5>
-        <p>{{return}}</p>
-      {{/ return}}
-      {{# hasParams}}
-        <h5>Parameters</h5>
-        {{# param}}
-          <em>{{name}}</em><br />
-          {{{description}}}
-          {{^ description}}
-            <em>No description provided</em>
-          {{/ description}}
-        {{/ param}}
-      {{/hasParams}}
-    </div>
+    {{# return}}
+      <h4>Returns</h4>
+      <p>{{return}}</p>
+    {{/ return}}
+    {{# hasParams}}
+      <h4>Parameters</h4>
+      {{# param}}
+        <em>{{name}}</em><br />
+        {{{description}}}
+        {{^ description}}
+          <em>No description provided</em>
+        {{/ description}}
+      {{/ param}}
+    {{/hasParams}}
+    {{# example}}
+      <h4>Example</h4>
+      <pre><code>{{{example}}}</code></pre>
+    {{/ example}}
+  </div>
   {{/ methods}}
 {{/ hasMethods}}
 {{^ hasMethods}}
