@@ -161,7 +161,7 @@ module.exports.getPreviousWord = getPreviousWord;
 
 var copyFile = function(source, target, cb) {
 
-  console.log('Copying file ' + source + ' to ' + target);
+  console.log('* Copying file ' + source + ' to ' + target);
 
   var cbCalled = false;
 
@@ -205,7 +205,12 @@ var deleteFolderRecursive = function(path) {
 };
 
 var refreshFolder = function(path) {
-  deleteFolderRecursive(path);
-  fs.mkdirSync(path);
+  if(fs.existsSync(path + 'index.html')) {
+    deleteFolderRecursive(path);
+    fs.mkdirSync(path);
+  }
+  else {
+    console.log('* Not clearing your docs directory since no index.html was found.');
+  }
 }
 module.exports.refreshFolder = refreshFolder;

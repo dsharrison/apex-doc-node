@@ -8,17 +8,20 @@ var mst_templates = {};
 var template_dir = './_templates/';
 var docs_dir = config.target || './docs/';
 
-helper.refreshFolder(docs_dir);
+var printStatusMessage = function(message) {
+  console.log('');
+  console.log('//');
+  console.log('// ' + message);
+  console.log('// --------------------------------------------------');
+}
+module.exports.printStatusMessage = printStatusMessage;
 
 var writeResult = function(classModels) {
-  fs.writeFile('result.json', JSON.stringify(classModels, null, '  '), function(err) {
-    if(err) {
-      throw err;
-    }
-    else {
-      console.log('* Results written to result.json');
-    }
-  });
+  helper.refreshFolder(docs_dir);
+  printStatusMessage('Writing raw data');
+  fs.writeFileSync(docs_dir + 'output.json', JSON.stringify(classModels, null, '  '));
+  console.log('* Results written to ' + docs_dir + 'output.json');
+  printStatusMessage('Generating HTML files');
 
   loadMustacheTemplates();
 
@@ -29,11 +32,8 @@ var writeResult = function(classModels) {
   var template = getTemplate('layout');
 
   var html = Mustache.render(template, docPage, mst_templates);
-  fs.writeFile(docs_dir + 'index.html', html, function(err){
-    if(err) {
-      throw err;
-    }
-  });
+  fs.writeFileSync(docs_dir + 'index.html', html);
+  console.log('* Generated index.html');
 
   for(var i = 0; i < classModels.length; i++) {
     var currentClass = classModels[i];
@@ -47,18 +47,18 @@ var writeResult = function(classModels) {
 
     html = Mustache.render(template, docPage, mst_templates);
     fs.writeFileSync(docs_dir + name + '.html', html);
+    console.log('* Generated ' + name + '.html');
   }
-
-  console.log('**************************************************************************');
-  console.log('* Processing complete!');
-  console.log('**************************************************************************');
 
 }
 module.exports.writeResult = writeResult;
 
 var copyResources = function() {
   var resources_dir = './_resources/';
-  fs.mkdirSync(docs_dir + 'resources/');
+  printStatusMessage('Copying resources from ' + resources_dir + ' to ' + docs_dir + 'resources/');
+  if(!fs.existsSync(docs_dir + 'resources/')) {
+    fs.mkdirSync(docs_dir + 'resources/');
+  }
   var files = fs.readdirSync(resources_dir);
   files.forEach(function(file_name){
     helper.copyFile(resources_dir + file_name, docs_dir + 'resources/' + file_name);

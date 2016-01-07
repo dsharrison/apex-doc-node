@@ -6,10 +6,7 @@ var fileOutput = require('./_lib/output');
 var config = require('./_util/config');
 
 var scopes = '"' + config.scopes.join('", "') + '"';
-console.log('**************************************************************************');
-console.log('* Running ApexDoc for files in ' + config.source);
-console.log('* and scope(s): ' + scopes);
-console.log('**************************************************************************');
+fileOutput.printStatusMessage('Running ApexDoc for files in ' + config.source + ' and scope(s): ' + scopes);
 
 fs.readdir(config.source, function(err, files){
   if(err) {
@@ -22,7 +19,7 @@ fs.readdir(config.source, function(err, files){
   files.forEach(function(file_name){
     if(file_name.endsWith('.cls')) {
       i++;
-      console.log('Processing ' + i + ' of ' + (files.length / 2) + ': ' + file_name);
+      console.log('* Processing ' + i + ' of ' + (files.length / 2) + ': ' + file_name);
 
       // Read in the file and convert it to an array of strings that will allow
       // us to read line by line of the file.
@@ -37,4 +34,8 @@ fs.readdir(config.source, function(err, files){
 
   fileOutput.writeResult(classModels);
   fileOutput.copyResources();
+
+  console.log('');
+  console.log('** Documentation generation complete! **');
+  console.log('');
 });
