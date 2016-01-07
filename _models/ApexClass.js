@@ -66,7 +66,6 @@ ApexClass.prototype.parseName = function() {
   if(this.parentName) {
     parent_name = this.parentName + '.';
   }
-  this.name = parent_name;
   if(name_line) {
     var index_f = name_line.toLowerCase().indexOf('class ');
     var offset_f = 6;
@@ -80,17 +79,19 @@ ApexClass.prototype.parseName = function() {
     }
     var index_l = name_line.indexOf(' ');
     if(index_l == -1) {
-      this.name += name_line;
+      this.name = name_line;
     }
     else {
       try {
-        this.name += name_line.substring(0, index_l);
+        this.name = name_line.substring(0, index_l);
       }
       catch(err) {
-        this.name += name_line.substring(name_line.lastIndexOf(' ') + 1);
+        this.name = name_line.substring(name_line.lastIndexOf(' ') + 1);
       }
     }
   }
+  this.className = this.name;
+  this.name = parent_name + this.name;
 }
 
 ApexClass.prototype.addChildClass = function(childClass) {
@@ -98,7 +99,9 @@ ApexClass.prototype.addChildClass = function(childClass) {
 }
 
 ApexClass.prototype.addMethod = function(method) {
-  if(method.name == this.name) {
+  if(method.name == this.className) {
+    method.name = this.parentName + '.' + method.name;
+    method.nameWithParams = this.parentName + '.' + method.nameWithParams;
     this.constructors.push(method);
     this.hasConstructors = true;
   }
