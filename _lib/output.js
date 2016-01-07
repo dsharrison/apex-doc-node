@@ -6,7 +6,7 @@ var helper = require('../_util/helper');
 // Include your partials in this list for them to be loaded
 var mst_templates = {};
 var template_dir = './_templates/';
-var docs_dir = './docs/';
+var docs_dir = config.target || './docs/';
 
 helper.refreshFolder(docs_dir);
 
@@ -32,9 +32,6 @@ var writeResult = function(classModels) {
   fs.writeFile(docs_dir + 'index.html', html, function(err){
     if(err) {
       throw err;
-    }
-    else {
-      console.log('* Wrote index.html');
     }
   });
 

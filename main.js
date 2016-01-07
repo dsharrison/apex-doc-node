@@ -7,11 +7,11 @@ var config = require('./_util/config');
 
 var scopes = '"' + config.scopes.join('", "') + '"';
 console.log('**************************************************************************');
-console.log('* Running ApexDoc for files in ' + config.directory);
+console.log('* Running ApexDoc for files in ' + config.source);
 console.log('* and scope(s): ' + scopes);
 console.log('**************************************************************************');
 
-fs.readdir(config.directory, function(err, files){
+fs.readdir(config.source, function(err, files){
   if(err) {
     throw err;
   }
@@ -26,7 +26,7 @@ fs.readdir(config.directory, function(err, files){
 
       // Read in the file and convert it to an array of strings that will allow
       // us to read line by line of the file.
-      var file_data = fs.readFileSync(config.directory + file_name);
+      var file_data = fs.readFileSync(config.source + file_name);
       var classModel = parser.processFile(file_name, file_data);
 
       if(classModel) {
