@@ -5,7 +5,7 @@ var helper = require('../_util/helper');
 // Constructor
 function ApexClass(classModelParent) {
   //this.classModelParent = classModelParent;
-  if(classModelParent) {
+  if(classModelParent && classModelParent.name) {
     this.parentName = classModelParent.name;
   }
   this.isInterface = false;
@@ -100,8 +100,10 @@ ApexClass.prototype.addChildClass = function(childClass) {
 
 ApexClass.prototype.addMethod = function(method) {
   if(method.name == this.className) {
-    method.name = this.parentName + '.' + method.name;
-    method.nameWithParams = this.parentName + '.' + method.nameWithParams;
+    if(this.parentName) {
+      method.name = this.parentName + '.' + method.name;
+      method.nameWithParams = this.parentName + '.' + method.nameWithParams;
+    }
     this.constructors.push(method);
     this.hasConstructors = true;
   }

@@ -95,6 +95,7 @@ var processFile = function(file_name, file_data) {
 
     //ignore lines not dealing with scope but do not skip interfaces
     if(!helper.getScopeFromString(file_data_line) && !(classModel != null && classModel.isInterface && file_data_line.includes('('))) {
+      commentList.clear();
       continue;
     }
 
@@ -120,6 +121,7 @@ var processFile = function(file_name, file_data) {
       else {
         classModelParent = newClassModel;
       }
+      commentList.clear();
       continue;
     }
 

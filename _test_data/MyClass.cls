@@ -10,6 +10,9 @@ public class TestClass {
    */
   public Integer myInt {get;set;}
 
+  /**
+   * This variable is always null. Have fun with it!
+   */
   public Boolean noData {
     get;
     set;
@@ -32,7 +35,7 @@ public class TestClass {
   /**
    * Standard constructor.
    *
-   * @example 
+   * @example
    * TestClass t = new TestClass();
    */
   public TestClass() {
@@ -43,6 +46,18 @@ public class TestClass {
   public class InnerClass {
 
     public String innerString;
+
+    /**
+     * Return today's date.
+     *
+     * @return Always today's date.
+     *
+     * @example
+     * System.debug('Today is ' + getToday());
+     */
+    public Date getToday() {
+      return System.today();
+    }
 
   }
 }
