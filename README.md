@@ -2,6 +2,7 @@
 This project is a node.js implementation of the [ApexDoc](https://github.com/SalesforceFoundation/ApexDoc) project. The project aims to provide a documentation frame work for development on the force.com platform.
 
 ## Project Status
+[![Build Status](https://travis-ci.org/dsharrison/apex-doc-node.svg?branch=master)](https://travis-ci.org/dsharrison/apex-doc-node)
 This project is currently in early alpha so bugs may be encountered. A test suite has not yet been implemented and major changes may be made to the project structure prior to the 1.0.0 release. Additionally, this project does not yet have feature parity with the Java ApexDoc and is missing the following notable features:
 
   - Command-line arguments
