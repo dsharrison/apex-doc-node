@@ -3,6 +3,7 @@ var Mustache = require('mustache');
 var config = require(getFilePath('/_util/config'));
 var helper = require(getFilePath('/_util/helper'));
 var ncp = require('ncp').ncp;
+var mkdirp = require('mkdirp');
 
 // Include your partials in this list for them to be loaded
 var mst_templates = {};
@@ -22,7 +23,7 @@ var writeResult = function(classModels) {
 
   helper.refreshFolder(docs_dir);
 
-  fs.mkdir(docs_dir);
+  mkdirp.sync(docs_dir);
 
   if(config.data.json != false) {
     printStatusMessage('Writing raw data');
@@ -66,17 +67,11 @@ var copyResources = function() {
   var docs_dir = config.data.target;
 
   var resources_dir = getFilePath('/_resources/');
+  mkdirp.sync(docs_dir + 'resources/');
   printStatusMessage('Copying resources from ' + resources_dir + ' to ' + docs_dir + 'resources/');
-  /* if(!fs.existsSync(docs_dir + 'resources/')) {
-    fs.mkdirSync(docs_dir + 'resources/');
-  }
-  var files = fs.readdirSync(resources_dir);
-  files.forEach(function(file_name){
-    helper.copyFile(resources_dir + file_name, docs_dir + 'resources/' + file_name);
-  }); */
   ncp(resources_dir, docs_dir + 'resources/', function (err) {
    if (err) {
-     return console.error(err);
+     throw err;
    }
   });
 }

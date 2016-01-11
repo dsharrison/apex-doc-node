@@ -102,11 +102,15 @@ var parseTokens = function(model, tokens, commentList) {
       comment = comment.replace('*/', '').trim();
       comment = comment.replace('*', '').trim();
       if(comment.length > 0) {
-        if(token_obj && token_obj['type'] == 'array' && model[token_name][model[token_name.length - 1]]) {
-          model[token_name][model[token_name.length - 1]] += comment.trim();
+        if(token_obj && token_obj['type'] == 'array') {
+          if(model[token_name][model[token_name.length - 1]]) {
+            model[token_name][model[token_name.length - 1]] += comment.trim();
+          }
         }
-        if(token_obj && token_obj['type'] == 'array-typed' && model[token_name][model[token_name.length - 1]]) {
-          model[token_name][model[token_name.length - 1]].addLine(comment.trim());
+        if(token_obj && token_obj['type'] == 'array-typed') {
+          if(model[token_name][model[token_name.length - 1]]) {
+            model[token_name][model[token_name.length - 1]].addLine(comment.trim());
+          }
         }
         else {
           if(!model[token_name]) {
