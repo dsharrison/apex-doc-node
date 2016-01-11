@@ -1,4 +1,5 @@
 var expect    = require('chai').expect;
+var app       = require('../apex-doc-node');
 var parser    = require('../_lib/parser');
 var fs        = require('fs');
 var config    = require('../_util/config');

@@ -1,7 +1,9 @@
 // Set a global variable for our app root
-global.appRoot = require('app-root-path');
-global.getFilePath = function(local_file) {
-  return appRoot + local_file;
+var path = require('path');
+global.appRoot = path.resolve(__dirname);
+console.log('ApexDoc Root: ' + appRoot);
+global.getFilePath = function(local_path){
+  return appRoot + local_path;
 }
 module.exports = {
   config : require(getFilePath('/_util/config')),

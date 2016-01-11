@@ -1,9 +1,3 @@
-// Set a global variable for our app root
-global.appRoot = require('app-root-path');
-global.getFilePath = function(local_file) {
-  return appRoot + local_file;
-}
-
 // Load other modules
 require(getFilePath('/_util/polyfill'));
 var fs = require('fs');
@@ -11,16 +5,19 @@ var parser = require(getFilePath('/_lib/parser'));
 var fileOutput = require(getFilePath('/_lib/output'));
 var config = require(getFilePath('/_util/config'));
 
-var scopes = '"' + config.data.scopes.join('", "') + '"';
-fileOutput.printStatusMessage('Running ApexDoc for files in ' + config.data.source + ' and scope(s): ' + scopes);
+var run = function() {
+  var scopes = '"' + config.data.scopes.join('", "') + '"';
+  fileOutput.printStatusMessage('Running ApexDoc for files in ' + config.data.source + ' and scope(s): ' + scopes);
 
-fs.readdir(config.data.source, function(err, files){
-  if(err) {
+  var files;
+  try {
+    files = fs.readdirSync(config.data.source);
+  }
+  catch(err) {
     throw err;
   }
 
   var classModels = [];
-
   var i = 0;
   files.forEach(function(file_name){
     if(file_name.endsWith('.cls')) {
@@ -44,4 +41,5 @@ fs.readdir(config.data.source, function(err, files){
   console.log('');
   console.log('** Documentation generation complete! **');
   console.log('');
-});
+}
+module.exports = run;

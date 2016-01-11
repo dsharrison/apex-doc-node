@@ -1,9 +1,4 @@
-if(typeof getFilePath === 'undefined') {
-  global.appRoot = require('app-root-path');
-  global.getFilePath = function(local_file) {
-    return appRoot + local_file;
-  }
-}
+// Set a global variable for our app root
 var helper = require(getFilePath('/_util/helper'));
 var ApexClassModel = require(getFilePath('/_models/ApexClass'));
 var ApexMethodModel = require(getFilePath('/_models/ApexMethod'));

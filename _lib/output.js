@@ -7,7 +7,6 @@ var ncp = require('ncp').ncp;
 // Include your partials in this list for them to be loaded
 var mst_templates = {};
 var template_dir = getFilePath('/_templates/');
-var docs_dir = config.data.target || getFilePath('/docs/');
 
 var printStatusMessage = function(message) {
   console.log('');
@@ -18,14 +17,18 @@ var printStatusMessage = function(message) {
 module.exports.printStatusMessage = printStatusMessage;
 
 var writeResult = function(classModels) {
+
+  var docs_dir = config.data.target;
+
   helper.refreshFolder(docs_dir);
+
+  fs.mkdir(docs_dir);
 
   if(config.data.json != false) {
     printStatusMessage('Writing raw data');
     fs.writeFileSync(docs_dir + 'output.json', JSON.stringify(classModels, null, '  '));
+    console.log('* JSON result written to ' + docs_dir + 'output.json');
   }
-
-  console.log('* Results written to ' + docs_dir + 'output.json');
   printStatusMessage('Generating HTML files');
 
   loadMustacheTemplates();
@@ -59,6 +62,9 @@ var writeResult = function(classModels) {
 module.exports.writeResult = writeResult;
 
 var copyResources = function() {
+
+  var docs_dir = config.data.target;
+
   var resources_dir = getFilePath('/_resources/');
   printStatusMessage('Copying resources from ' + resources_dir + ' to ' + docs_dir + 'resources/');
   /* if(!fs.existsSync(docs_dir + 'resources/')) {

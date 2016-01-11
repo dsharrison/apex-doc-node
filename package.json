@@ -1,6 +1,6 @@
 {
   "name": "apex-doc-node",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "description": "A node.js implementation of ApexDoc.",
   "main": "apex-doc-node.js",
   "scripts": {
