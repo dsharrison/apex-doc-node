@@ -1,6 +1,6 @@
 {
   "name": "apex-doc-node",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A node.js implementation of ApexDoc.",
   "main": "apex-doc-node.js",
   "scripts": {
@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/dsharrison/apex-doc-node",
   "devDependencies": {
-    "app-root-path": "^1.0.0",
     "chai": "^3.4.1",
-    "mocha": "^2.3.4",
+    "mocha": "^2.3.4"
+  },
+  "dependencies": {
+    "app-root-path": "^1.0.0",
     "mustache": "^2.2.1",
     "ncp": "^2.0.0"
   }
