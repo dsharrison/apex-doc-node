@@ -5,6 +5,8 @@ var ApexClassModel = require('../_models/ApexClass');
 var ApexMethodModel = require('../_models/ApexMethod');
 var ApexPropertyModel = require('../_models/ApexProperty');
 
+require("../_util/polyfill.js");
+
 var processFile = function(file_name, file_data) {
 
   // Split file data to array of strings for processing

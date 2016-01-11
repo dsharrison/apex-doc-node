@@ -79,8 +79,9 @@ var parseTokens = function(model, tokens, commentList) {
             if(typeof this[token_model] === 'undefined') {
               this[token_model] = require('../_models/' + token_model);
             }
-            model[token_name] = new this[token_model](comment_trimmed);
+            model[token_name] = [];
           }
+          model[token_name].push(new this[token_model](comment_trimmed));
 
         }
         else {

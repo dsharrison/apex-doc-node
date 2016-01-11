@@ -11,9 +11,11 @@ public class TestClass {
   public Integer myInt {get;set;}
 
   /**
-   * This variable is always null. Have fun with it!
+   * This is my test string property.
    */
-  public Boolean noData {
+  private String myString {get;set;}
+
+  public Boolean noDocBoolean {
     get;
     set;
   }
@@ -24,12 +26,13 @@ public class TestClass {
    * This is a longer description of the functionality provided
    * by the method!
    *
-   * @param  param        The integer to method.
+   * @param  intParam     The integer to method.
+   * @param  notUsed      This parameter is not used.
    *
    * @return              Always returns param + 1;
    */
-  public Integer myMethod(Integer param) {
-    return param + 1;
+  public Integer myMethod(Integer intParam, Integer notUsed) {
+    return intParam + 1;
   }
 
   /**

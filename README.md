@@ -13,7 +13,6 @@ This project is currently in early alpha so bugs may be encountered. A test suit
 The next steps for this project will be to support the following:
 
   - Command-line arguments to override config.json settings
-  - A test suite
   - A grunt wrapper to allow for inclusion in build tasks
   - Support for template overrides
   - SASS compilation to allow for easier styling
