@@ -1,5 +1,6 @@
-var config = require('./config.js');
 var fs = require('fs');
+
+var config = require(getFilePath('/_util/config.js'));
 
 var getScopeFromString = function(string_to_search) {
   string_to_search = string_to_search.toLowerCase();
@@ -37,7 +38,7 @@ var parseTokens = function(model, tokens, commentList) {
       if(!model[x_token_name]) {
         var token_model = x_token_obj['model'];
         if(typeof this[token_model] === 'undefined') {
-          this[token_model] = require('../_models/' + token_model);
+          this[token_model] = require(getFilePath('/_models/' + token_model));
         }
         model[x_token_name] = null;
       }

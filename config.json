@@ -1,5 +1,5 @@
 {
-  "source" : "_test_data/",
+  "source" : "_test/data/",
   "target" : "./docs/",
   "company" : "Your Company Name",
   "email" : "email@your_company.com",

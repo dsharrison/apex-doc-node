@@ -1,10 +1,15 @@
-var helper = require('../_util/helper');
+if(typeof getFilePath === 'undefined') {
+  global.appRoot = require('app-root-path');
+  global.getFilePath = function(local_file) {
+    return appRoot + local_file;
+  }
+}
+var helper = require(getFilePath('/_util/helper'));
+var ApexClassModel = require(getFilePath('/_models/ApexClass'));
+var ApexMethodModel = require(getFilePath('/_models/ApexMethod'));
+var ApexPropertyModel = require(getFilePath('/_models/ApexProperty'));
 
-var ApexClassModel = require('../_models/ApexClass');
-var ApexMethodModel = require('../_models/ApexMethod');
-var ApexPropertyModel = require('../_models/ApexProperty');
-
-require("../_util/polyfill.js");
+require(getFilePath('/_util/polyfill.js'));
 
 var processFile = function(file_name, file_data) {
 

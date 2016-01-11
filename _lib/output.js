@@ -1,13 +1,13 @@
 var fs = require('fs');
 var Mustache = require('mustache');
-var config = require('../_util/config');
-var helper = require('../_util/helper');
+var config = require(getFilePath('/_util/config'));
+var helper = require(getFilePath('/_util/helper'));
 var ncp = require('ncp').ncp;
 
 // Include your partials in this list for them to be loaded
 var mst_templates = {};
-var template_dir = './_templates/';
-var docs_dir = config.data.target || './docs/';
+var template_dir = getFilePath('/_templates/');
+var docs_dir = config.data.target || getFilePath('/docs/');
 
 var printStatusMessage = function(message) {
   console.log('');
@@ -59,7 +59,7 @@ var writeResult = function(classModels) {
 module.exports.writeResult = writeResult;
 
 var copyResources = function() {
-  var resources_dir = './_resources/';
+  var resources_dir = getFilePath('/_resources/');
   printStatusMessage('Copying resources from ' + resources_dir + ' to ' + docs_dir + 'resources/');
   /* if(!fs.existsSync(docs_dir + 'resources/')) {
     fs.mkdirSync(docs_dir + 'resources/');
