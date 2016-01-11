@@ -3,9 +3,9 @@ var fs = require('fs');
 
 var getScopeFromString = function(string_to_search) {
   string_to_search = string_to_search.toLowerCase();
-  for(var i = 0; i < config.scopes.length; i++) {
-    if(string_to_search.includes(config.scopes[i].toLowerCase() + ' ')) {
-      return config.scopes[i];
+  for(var i = 0; i < config.data.scopes.length; i++) {
+    if(string_to_search.includes(config.data.scopes[i].toLowerCase() + ' ')) {
+      return config.data.scopes[i];
     }
   }
   return null;

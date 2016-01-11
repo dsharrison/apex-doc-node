@@ -1,5 +1,4 @@
 // Imports
-var config = require('../_util/config');
 var helper = require('../_util/helper');
 
 // Constructor

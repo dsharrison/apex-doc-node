@@ -7,7 +7,7 @@ var ncp = require('ncp').ncp;
 // Include your partials in this list for them to be loaded
 var mst_templates = {};
 var template_dir = './_templates/';
-var docs_dir = config.target || './docs/';
+var docs_dir = config.data.target || './docs/';
 
 var printStatusMessage = function(message) {
   console.log('');
@@ -19,8 +19,12 @@ module.exports.printStatusMessage = printStatusMessage;
 
 var writeResult = function(classModels) {
   helper.refreshFolder(docs_dir);
-  printStatusMessage('Writing raw data');
-  fs.writeFileSync(docs_dir + 'output.json', JSON.stringify(classModels, null, '  '));
+
+  if(config.data.json != false) {
+    printStatusMessage('Writing raw data');
+    fs.writeFileSync(docs_dir + 'output.json', JSON.stringify(classModels, null, '  '));
+  }
+
   console.log('* Results written to ' + docs_dir + 'output.json');
   printStatusMessage('Generating HTML files');
 
@@ -28,7 +32,7 @@ var writeResult = function(classModels) {
 
   var docPage = {};
   docPage.classes = classModels;
-  docPage.config = config;
+  docPage.config = config.data;
 
   var template = getTemplate('layout');
 

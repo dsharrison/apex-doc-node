@@ -10,7 +10,7 @@ describe("Apex Doc Parser", function(){
     var file_data = fs.readFileSync("./_test/data/TestClass.cls");
 
     // Setup config
-    config.scopes = ["global", "webservice", "public"];
+    config.data.scopes = ["global", "webservice", "public"];
 
     // Run parser
     var classModel = parser.processFile("TestClass.cls", file_data);

@@ -1,5 +1,4 @@
 var helper = require('../_util/helper');
-var config = require('../_util/config');
 
 var ApexClassModel = require('../_models/ApexClass');
 var ApexMethodModel = require('../_models/ApexMethod');

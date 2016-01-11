@@ -1,12 +1,13 @@
 {
-  "source" : "_test_data/",
+  "source" : "_test/data/",
+  "_source" : "/Users/derrek/bitbucket/renewals-application/src/classes/",
   "target" : "./docs/",
-  "company" : "Your Company Name",
-  "email" : "email@your_company.com",
+  "_target" : "/Users/derrek/bitbucket/time-tracking-org/resource-bundles/docs.resource/",
+  "company" : "Kinetic Growth",
+  "email" : "support@kineticgrowth.com",
+  "json" : "true",
   "scopes" : [
     "global",
-    "webservice",
-    "public",
-    "private"
+    "webservice"
   ]
 }
