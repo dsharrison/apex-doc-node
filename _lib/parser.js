@@ -1,3 +1,11 @@
+/*  The logic in this file is directly derivative of the ApexDoc project
+ *	which is Copyright (c) 2014, SalesforceFoundation. This file is specifically
+ *	licensed under the BSD license even if the rest of the project is using a
+ *	different license. Please see the LICENSE file for additional information.
+ *
+ *  https://github.com/SalesforceFoundation/ApexDoc
+ */
+
 // Set a global variable for our app root
 var helper = require(getFilePath('/_util/helper'));
 var ApexClassModel = require(getFilePath('/_models/ApexClass'));
