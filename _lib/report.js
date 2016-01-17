@@ -2,12 +2,23 @@ var output = require(getFilePath('/_lib/output'));
 
 var analyze = function (reportMap){
     var nClasses = reportMap.length;
-    var nDocumentedClass = 0;
+    var nElements = 0;
+    var nDocumentedElements = 0;
 
     for (var i = 0; i < reportMap.length; i++){
         var currentClass = reportMap[i];
         currentClass = analyzeClass(currentClass, false);
+        nElements += currentClass.nElements;
+        nDocumentedElements += currentClass.nDocumentedElements;
     }
+    if (nElements != 0){
+        elementCoverage = nDocumentedElements / nElements * 100;
+        elementCoverage = elementCoverage.toFixed(2);
+    }
+    var elementCoverage = 
+
+    output.printSecondaryMessage('Total Coverage: ' + nDocumentedElements + '/' + nElements + '(' + elementCoverage + '%)');
+
 
     return reportMap;
 }

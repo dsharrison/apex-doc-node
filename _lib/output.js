@@ -30,13 +30,10 @@ var writeResult = function(classModels) {
   helper.refreshFolder(docs_dir);
 
   mkdirp.sync(docs_dir);
-
-  //console.dir(classModels);
   
-  if(config.data.report != false) {
+  if(config.data.report != true) {
     printStatusMessage('Analyzing documentation');
     classModels = report.analyze(classModels);
-    //console.log('* JSON result written to ' + docs_dir + 'output.json');
   }
 
   if(config.data.json != false) {
