@@ -3,7 +3,6 @@ var Mustache = require('mustache');
 var config = require(getFilePath('/_util/config'));
 var helper = require(getFilePath('/_util/helper'));
 var report = require(getFilePath('/_lib/report'));
-var ncp = require('ncp').ncp;
 var mkdirp = require('mkdirp');
 
 // Include your partials in this list for them to be loaded
@@ -81,10 +80,11 @@ var copyResources = function() {
   var resources_dir = getFilePath('/_resources/');
   mkdirp.sync(docs_dir + 'resources/');
   printStatusMessage('Copying resources from ' + resources_dir + ' to ' + docs_dir + 'resources/');
-  ncp(resources_dir, docs_dir + 'resources/', function (err) {
-   if (err) {
-     throw err;
-   }
+
+  files = fs.readdirSync(resources_dir);
+  files.forEach(function(file_name){
+   var file_data = fs.readFileSync(resources_dir + file_name);
+   fs.writeFileSync(docs_dir + 'resources/' + file_name, file_data);
   });
 }
 module.exports.copyResources = copyResources;
