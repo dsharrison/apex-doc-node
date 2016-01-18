@@ -2,6 +2,7 @@ var fs = require('fs');
 var Mustache = require('mustache');
 var config = require(getFilePath('/_util/config'));
 var helper = require(getFilePath('/_util/helper'));
+var report = require(getFilePath('/_lib/report'));
 var mkdirp = require('mkdirp');
 
 // Include your partials in this list for them to be loaded
@@ -16,6 +17,11 @@ var printStatusMessage = function(message) {
 }
 module.exports.printStatusMessage = printStatusMessage;
 
+var printSecondaryMessage = function(message) {
+  console.log('* ' + message);
+}
+module.exports.printSecondaryMessage = printSecondaryMessage;
+
 var writeResult = function(classModels) {
 
   var docs_dir = config.data.target;
@@ -23,12 +29,18 @@ var writeResult = function(classModels) {
   helper.refreshFolder(docs_dir);
 
   mkdirp.sync(docs_dir);
+  
+  if(config.data.report != false) {
+    printStatusMessage('Analyzing documentation');
+    classModels = report.analyze(classModels);
+  }
 
   if(config.data.json != false) {
     printStatusMessage('Writing raw data');
     fs.writeFileSync(docs_dir + 'output.json', JSON.stringify(classModels, null, '  '));
-    console.log('* JSON result written to ' + docs_dir + 'output.json');
+    printSecondaryMessage('JSON result written to ' + docs_dir + 'output.json');
   }
+
   printStatusMessage('Generating HTML files');
 
   loadMustacheTemplates();
@@ -41,7 +53,7 @@ var writeResult = function(classModels) {
 
   var html = Mustache.render(template, docPage, mst_templates);
   fs.writeFileSync(docs_dir + 'index.html', html);
-  console.log('* Generated index.html');
+  printSecondaryMessage('Generated index.html');
 
   for(var i = 0; i < classModels.length; i++) {
     var currentClass = classModels[i];
@@ -55,7 +67,7 @@ var writeResult = function(classModels) {
 
     html = Mustache.render(template, docPage, mst_templates);
     fs.writeFileSync(docs_dir + name + '.html', html);
-    console.log('* Generated ' + name + '.html');
+    printSecondaryMessage('Generated ' + name + '.html');
   }
 
 }

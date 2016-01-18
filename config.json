@@ -8,5 +8,6 @@
     "webservice",
     "public",
     "private"
-  ]
+  ],
+  "report" : false
 }
