@@ -3,20 +3,15 @@
  * @author  Derrek Harrison
  * @date    1-1-2014
  */
-public class TestClass2 {
+public class TestCoverage {
 
-  //Missing doc
-  public Integer myInt {get;set;}
 
   /**
-   * This is my test string property.
+   * Documented Property
    */
-  private String myString {get;set;}
+  public Integer documentedProperty {get;set;}
 
-  public Boolean noDocBoolean {
-    get;
-    set;
-  }
+  public Integer undocumentedProperty {get;set;}
 
   /**
    * This is my sample method with a short description.
@@ -29,12 +24,11 @@ public class TestClass2 {
    *
    * @return              Always returns param + 1;
    */
-  public Integer myMethod(Integer intParam, Integer notUsed) {
+  public Integer documentedMethod(Integer intParam, Integer notUsed) {
     return intParam + 1;
   }
 
-  //Missing shit
-  public Integer myMethod(Integer intParam, Integer notUsed) {
+  public Integer undocumentedMethod(Integer intParam, Integer notUsed) {
     return intParam + 1;
   }
 
@@ -44,12 +38,16 @@ public class TestClass2 {
    * @example
    * TestClass2 t = new TestClass2();
    */
-  public TestClass2() {
+  public TestCoverage() {
+    // Constructor
+  }
+
+  public TestCoverage(String unDocumented) {
     // Constructor
   }
 
 
-  public class InnerClass {
+  public class unDocumentedInnerClass {
 
     public String innerString;
 

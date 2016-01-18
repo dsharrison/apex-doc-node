@@ -3,6 +3,7 @@ var app       = require('../apex-doc-node');
 var parser    = require('../_lib/parser');
 var fs        = require('fs');
 var config    = require('../_util/config');
+var report    = require('../_lib/report');
 
 describe('Apex Doc Parser', function(){
   describe('Single class and subclass parse', function(){
@@ -63,6 +64,64 @@ describe('Apex Doc Parser', function(){
       var childClass = classModel.childClasses[0];
       expect(childClass.name).to.equal('TestClass.InnerClass');
       expect(childClass.className).to.equal('InnerClass');
+    });
+
+    // Read in test file
+    file_data = fs.readFileSync(getFilePath('/_test/data/TestCoverage.cls'));
+
+    // Run parser
+    var coverageClass = parser.processFile('TestCoverage.cls', file_data);
+
+    it('analyzes documentation coverage', function(){
+      coverageClass = report.analyzeClass(coverageClass);
+
+      //Assert class coverage
+      var current = coverageClass;
+      expect(current.nElements).to.equal(10);
+      expect(current.nDocumentedElements).to.equal(5);
+      expect(current.elementCoverage).to.equal((5/10 * 100).toFixed(2));
+
+      //Assert methods coverage
+      current = coverageClass.methodAnalysis;
+      expect(current.nElements).to.equal(2);
+      expect(current.nDocumentedElements).to.equal(1);
+      expect(current.elementCoverage).to.equal((1/2 * 100).toFixed(2));
+
+      //Assert constructor coverage
+      current = coverageClass.constructorAnalysis;
+      expect(current.nElements).to.equal(2);
+      expect(current.nDocumentedElements).to.equal(1);
+      expect(current.elementCoverage).to.equal((1/2 * 100).toFixed(2));
+
+      //Assert property coverage
+      current = coverageClass.propertyAnalysis;
+      expect(current.nElements).to.equal(2);
+      expect(current.nDocumentedElements).to.equal(1);
+      expect(current.elementCoverage).to.equal((1/2 * 100).toFixed(2));
+
+      //Assert child class coverage
+      current = coverageClass.childClasses[0];
+      expect(current.nElements).to.equal(3);
+      expect(current.nDocumentedElements).to.equal(1);
+      expect(current.elementCoverage).to.equal((1/3 * 100).toFixed(2));
+
+      //Assert child class method coverage
+      current = coverageClass.childClasses[0].methodAnalysis;
+      expect(current.nElements).to.equal(1);
+      expect(current.nDocumentedElements).to.equal(1);
+      expect(current.elementCoverage).to.equal((1/1 * 100).toFixed(2));
+
+      //Assert child class constructor coverage
+      current = coverageClass.childClasses[0].constructorAnalysis;
+      expect(current.nElements).to.equal(0);
+      expect(current.nDocumentedElements).to.equal(0);
+      expect(current.elementCoverage).to.equal((0 * 100).toFixed(2));
+
+      //Assert child class property coverage
+      current = coverageClass.childClasses[0].propertyAnalysis;
+      expect(current.nElements).to.equal(1);
+      expect(current.nDocumentedElements).to.equal(0);
+      expect(current.elementCoverage).to.equal((0 * 100).toFixed(2));
     });
   });
 });

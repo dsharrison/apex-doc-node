@@ -31,7 +31,7 @@ Edit the `config.json` file to set the following properties:
   - `company`: The name of your company.
   - `email`: Your company's contact email.
   - `scopes`: An array of scopes you would like to generate documentation for.
-
+  - `report`: Whether to run the documentation coverage analysis or not (true/false). 
 ### Execution
 To run the documentation, simply run `node main.js` from the project root.
 
