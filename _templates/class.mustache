@@ -3,6 +3,43 @@
   <p>{{{description}}}</p>
 {{/description}}
 <h2>{{name}} Fields</h2>
+{{# hasEnums}}
+  The following are enums for <code>{{name}}</code>.
+  <ul>
+    {{# enums}}
+      <li>
+        <a href="#enum-{{name}}">{{name}}</a>
+        <br />
+        {{# description}}
+          <p>{{{description}}}</p>
+        {{/ description}}
+        {{^ description}}
+          <p><em>No description provided</em></p>
+        {{/ description}}
+      </li>
+    {{/ enums}}
+  </ul>
+  {{# enums}}
+    <div id="enum-{{name}}" class="enum">
+      <h3>{{name}}</h3>
+      {{# description}}
+      <p>{{{description}}}</p>
+      {{/ description}}
+      {{^ description}}
+        <p><em>No description provided</em></p>
+      {{/ description}}
+      <h4>Signature</h4>
+      <p><code>{{nameLine}}</code></p>
+      <h4>Available Values</h4>
+      <ul>
+        {{# values}}
+          <li>{{.}}</li>
+        {{/ values}}
+      </ul>
+    </div>
+  {{/enums}}
+{{/ hasEnums}}
+<h2>{{name}} Fields</h2>
 {{# hasProperties}}
   The following are fields for <code>{{name}}</code>.
   <ul>

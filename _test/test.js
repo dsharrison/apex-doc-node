@@ -33,6 +33,10 @@ describe('Apex Doc Parser', function(){
       expect(apexProperty.name).to.equal('noDocBoolean');
       expect(apexProperty.description).to.equal(null);
 
+      expect(classModel.enums.length).to.equal(1);
+      var apexEnum = classModel.enums[0];
+      expect(apexEnum.className).to.equal('Seasons');
+      expect(apexEnum.values.length).to.equal(4);
     });
     it('parses parent class constructors and methods', function(){
 

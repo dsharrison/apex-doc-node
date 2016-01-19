@@ -9,6 +9,7 @@
 // Set a global variable for our app root
 var helper = require(getFilePath('/_util/helper'));
 var ApexClassModel = require(getFilePath('/_models/ApexClass'));
+var ApexEnumModel = require(getFilePath('/_models/ApexEnum'));
 var ApexMethodModel = require(getFilePath('/_models/ApexMethod'));
 var ApexPropertyModel = require(getFilePath('/_models/ApexProperty'));
 
@@ -159,11 +160,33 @@ var processFile = function(file_name, file_data) {
     }
 
     if(classModel) {
-      // must be a property
-      var propertyModel = new ApexPropertyModel();
-      propertyModel.fillDetails(file_data_line, commentList, i);
-      classModel.addProperty(propertyModel);
-      commentList.clear();
+
+      if(file_data_line.includes(' enum ')) {
+        var enumModel = new ApexEnumModel(classModel);
+        enumModel.fillDetails(file_data_line, commentList, i);
+
+        console.log(file_data_line);
+
+        while(!file_data_line.includes('}')) {
+          i++;
+          file_data_line = file_data_array[i];
+          console.log(file_data_line);
+          var value_line = file_data_line.replace('}', '');
+          value_line = value_line.trim();
+          enumModel.addValue(value_line);
+        }
+
+        classModel.addEnum(enumModel);
+        commentList.clear();
+      }
+
+      else {
+        // must be a property
+        var propertyModel = new ApexPropertyModel();
+        propertyModel.fillDetails(file_data_line, commentList, i);
+        classModel.addProperty(propertyModel);
+        commentList.clear();
+      }
     }
     else {
       commentList.clear();

@@ -9,6 +9,8 @@ function ApexClass(classModelParent) {
   }
   this.isInterface = false;
   this.childClasses = [];
+  this.enums = [];
+  this.hasEnums = false;
   this.methods = [];
   this.hasMethods = false;
   this.constructors = [];
@@ -115,6 +117,11 @@ ApexClass.prototype.addMethod = function(method) {
 ApexClass.prototype.addProperty = function(property) {
   this.properties.push(property);
   this.hasProperties = true;
+}
+
+ApexClass.prototype.addEnum = function(e) {
+  this.enums.push(e);
+  this.hasEnums = true;
 }
 
 ApexClass.prototype.parseScope = function() {

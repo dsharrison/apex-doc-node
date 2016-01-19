@@ -15,6 +15,16 @@ public class TestClass {
    */
   private String myString {get;set;}
 
+  /**
+   * These are the seasons
+   */
+  public enum Seasons {
+    SPRING,
+    SUMMER,
+    FALL,
+    WINTER
+  }
+
   public Boolean noDocBoolean {
     get;
     set;
