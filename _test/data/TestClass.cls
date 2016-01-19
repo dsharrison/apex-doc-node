@@ -53,7 +53,7 @@ public class TestClass {
    * TestClass t = new TestClass();
    *
    * if(t.noDocBoolean != true) {
-   *   System.Debug('Whoa, not true dude.')
+   *   System.Debug('Whoa, not true dude.');
    * }
    */
   public TestClass() {

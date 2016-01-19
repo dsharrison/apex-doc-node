@@ -45,7 +45,7 @@ describe('Apex Doc Parser', function(){
       var apexMethod = classModel.constructors[0];
       expect(apexMethod.name).to.equal('TestClass');
       expect(apexMethod.description).to.equal('Standard constructor.');
-      expect(apexMethod.example).to.equal('TestClass t = new TestClass();');
+      expect(apexMethod.example).to.equal('TestClass t = new TestClass();\n\nif(t.noDocBoolean != true) {\n  System.Debug(\'Whoa, not true dude.\');\n}\n');
 
       // Parent Class Methods
       expect(classModel.methods.length).to.equal(1);
@@ -57,7 +57,7 @@ describe('Apex Doc Parser', function(){
       expect(apexMethod.param.length).to.equal(2);
       var apexMethodParam = apexMethod.param[0];
       expect(apexMethodParam.name).to.equal('intParam');
-      expect(apexMethodParam.description).to.equal('The integer to method.');
+      expect(apexMethodParam.description).to.equal('The integer to method. This description wraps for multiple lines!');
       apexMethodParam = apexMethod.param[1];
       expect(apexMethodParam.name).to.equal('notUsed');
       expect(apexMethodParam.description).to.equal('This parameter is not used.');

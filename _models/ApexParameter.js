@@ -6,7 +6,9 @@ function ApexParameter(line_string) {
 }
 
 ApexParameter.prototype.addLine = function(line_string) {
-  this.description += ' ' + line_string.trim();
+  if(line_string && line_string.length) {
+    this.description += ' ' + line_string.trim();
+  }
 }
 
 // Class export
