@@ -36,7 +36,8 @@ public class TestClass {
    * This is a longer description of the functionality provided
    * by the method!
    *
-   * @param  intParam     The integer to method.
+   * @param  intParam     The integer to method. This description wraps for
+   *                      multiple lines!
    * @param  notUsed      This parameter is not used.
    *
    * @return              Always returns param + 1;
@@ -50,6 +51,10 @@ public class TestClass {
    *
    * @example
    * TestClass t = new TestClass();
+   *
+   * if(t.noDocBoolean != true) {
+   *   System.Debug('Whoa, not true dude.')
+   * }
    */
   public TestClass() {
     // Constructor

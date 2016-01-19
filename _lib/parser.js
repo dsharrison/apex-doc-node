@@ -35,6 +35,7 @@ var processFile = function(file_name, file_data) {
   // Loop over each line in the file
   for(var i = 0; i < file_data_array.length; i++) {
     var file_data_line = file_data_array[i];
+    var raw_file_data_line = file_data_line;
 
     // If we have no data, move to the next line
     if(file_data_line.length == 0) {
@@ -73,7 +74,7 @@ var processFile = function(file_name, file_data) {
 
     if(commentStarted) {
       if(docBlockStarted) {
-        commentList.push(file_data_line);
+        commentList.push(raw_file_data_line);
       }
       continue;
     }

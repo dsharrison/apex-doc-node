@@ -20,7 +20,7 @@ var tokens = [
   },
   {
     'name': '@example',
-    'type': 'single'
+    'type': 'single-raw'
   },
   {
     'name': '@param',
