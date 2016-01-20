@@ -9,5 +9,11 @@
     "public",
     "private"
   ],
-  "report" : false
+  "report" : {
+    "enable" : true,
+    "ratings" : {
+      "good" : 90,
+      "poor" : 70
+    }
+  }
 }

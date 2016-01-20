@@ -1,4 +1,5 @@
 var output = require(getFilePath('/_lib/output'));
+var config = require(getFilePath('/_util/config'));
 
 var suppressLogging = false;
 
@@ -44,6 +45,7 @@ var analyze = function (reportMap){
     module.exports.nElements = nElements;
     module.exports.nDocumentedElements = nDocumentedElements;
     module.exports.elementCoverage = elementCoverage;
+    module.exports.rating = assessRating(elementCoverage);
 
     return reportMap;
 }
@@ -127,6 +129,7 @@ var analyzeClass = function (currentClass){
         childClassAnalysis.elementCoverage = childClassAnalysis.nDocumentedElements / childClassAnalysis.nElements * 100;
         childClassAnalysis.elementCoverage = childClassAnalysis.elementCoverage.toFixed(2);
     }
+    childClassAnalysis.rating = assessRating(childClassAnalysis.elementCoverage);
     currentClass.childClassAnalysis = childClassAnalysis;
 
 
@@ -135,8 +138,9 @@ var analyzeClass = function (currentClass){
         currentClass.elementCoverage = currentClass.nDocumentedElements / currentClass.nElements * 100;
         currentClass.elementCoverage = currentClass.elementCoverage.toFixed(2);
     }
+    currentClass.rating = assessRating(currentClass.elementCoverage);
 
-    return currentClass;   
+    return currentClass;
 }
 module.exports.analyzeClass = analyzeClass;
 
@@ -164,8 +168,27 @@ function analyzeList(sublist){
     var result = {
         elementCoverage : elementCoverage,
         nElements : nElements,
-        nDocumentedElements : nDocumentedElements
+        nDocumentedElements : nDocumentedElements,
+        rating : assessRating(elementCoverage)
     };
 
     return result;
+}
+
+function assessRating(elementCoverage){
+    var rating = {
+        good : false,
+        poor : false,
+        bad  : false
+    };
+
+    if (elementCoverage >= config.data.report.ratings.good){
+        rating.good = true;
+    } else if (elementCoverage >= config.data.report.ratings.poor){
+        rating.poor = true;
+    } else {
+        rating.bad = true;
+    }
+
+    return rating;
 }

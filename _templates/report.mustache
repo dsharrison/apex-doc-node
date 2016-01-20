@@ -1,0 +1,40 @@
+{{#config.report.enable}}
+  <br/>
+  <div class="panel panel-default">
+    <div class="panel-heading">Documentation Coverage</div>
+      <table class="table">
+      <thead>
+        <tr>
+          <th>
+            Class
+          </th>
+          <th>
+            Elements
+          </th>
+          <th>
+            Coverage
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#classes}}
+        <tr>
+          <td class="col-md-5">
+            {{name}}
+          </td>
+          <td class="col-md-1">
+            {{nDocumentedElements}}/{{nElements}}
+          </td>
+          <td class="col-md-6">
+            <div class="progress">
+              <div class="progress-bar progress-bar-{{#rating.good}}success{{/rating.good}}{{#rating.poor}}warning{{/rating.poor}}{{#rating.bad}}danger{{/rating.bad}}" role="progressbar" aria-valuenow="{{elementCoverage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{elementCoverage}}%">{{elementCoverage}}
+              </div>
+            </div>
+          </td>
+        </tr>
+        {{/classes}}
+      </tbody>
+      </table>
+    </div>
+  </div>
+{{/config.report.enable}}
