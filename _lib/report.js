@@ -62,8 +62,6 @@ var analyzeClass = function (currentClass){
     currentClass.nDocumentedElements = 0;
     currentClass.elementCoverage = (0).toFixed(2);
 
-
-
     //Account for class description
     currentClass.nElements++;
     if (currentClass.isDocumented){
@@ -131,6 +129,7 @@ var analyzeClass = function (currentClass){
     }
     childClassAnalysis.rating = assessRating(childClassAnalysis.elementCoverage);
     currentClass.childClassAnalysis = childClassAnalysis;
+    currentClass.hasChildClasses = (currentClass.childClasses.length > 0) ? true : false ;
 
 
     /* TALLY CURRENT CLASS */

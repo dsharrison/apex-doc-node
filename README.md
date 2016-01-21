@@ -31,7 +31,10 @@ Edit the `config.json` file to set the following properties:
   - `company`: The name of your company.
   - `email`: Your company's contact email.
   - `scopes`: An array of scopes you would like to generate documentation for.
-  - `report`: Whether to run the documentation coverage analysis or not (true/false). 
+  - `report`: Settings for the documentation coverage analysis. 
+              If `enable` is set to true, the documentation coverage analysis will run. 
+              You can set the `ratings` to establish thresholds for rating how well a class is covered.
+              
 ### Execution
 To run the documentation, simply run `node run` from the project root.
 
