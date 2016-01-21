@@ -81,14 +81,22 @@ var analyzeClass = function (currentClass){
     }
     currentClass.methodAnalysis = methodAnalysis;
     
-    /* PROPERTIES */
+    /* PROPERTIES & ENUMS*/
     var propertyAnalysis = {
         nElements : 0,
         nDocumentedElements : 0,
         elementCoverage : (0).toFixed(2)
     };
-    if (currentClass.hasProperties){
-        propertyAnalysis = analyzeList(currentClass.properties);
+    if (currentClass.hasProperties || currentClass.hasEnums){
+        //Concatenate properties and enums
+        if (!currentClass.hasProperties){
+            currentClass.properties = [];
+        }
+        if (!currentClass.hasEnums){
+            currentClass.enums = [];
+        }
+        var concatenatedArray = currentClass.properties.concat(currentClass.enums);
+        propertyAnalysis = analyzeList(concatenatedArray);
         currentClass.nElements += propertyAnalysis.nElements;
         currentClass.nDocumentedElements += propertyAnalysis.nDocumentedElements;
     }

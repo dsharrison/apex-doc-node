@@ -14,6 +14,22 @@ public class TestCoverage {
   public Integer undocumentedProperty {get;set;}
 
   /**
+   * Documented Enum
+   */
+  public enum documentedEnum {
+    ENUM1,
+    ENUM2,
+    ENUM3
+  }
+
+  public enum unDocumentedEnum {
+    ENUM1,
+    ENUM2,
+    ENUM3
+  }
+
+
+  /**
    * This is my sample method with a short description.
    * <p>
    * This is a longer description of the functionality provided
@@ -50,6 +66,12 @@ public class TestCoverage {
   public class unDocumentedInnerClass {
 
     public String innerString;
+
+    public enum innerEnum {
+      ENUM1,
+      ENUM2,
+      ENUM3
+    }
 
     /**
      * Return today's date.
