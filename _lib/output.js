@@ -30,7 +30,7 @@ var writeResult = function(classModels) {
 
   mkdirp.sync(docs_dir);
   
-  if(config.data.report != false) {
+  if(config.data.report.enable != false) {
     printStatusMessage('Analyzing documentation');
     classModels = report.analyze(classModels);
   }

@@ -81,9 +81,9 @@ describe('Apex Doc Parser', function(){
 
       //Assert class coverage
       var current = coverageClass;
-      expect(current.nElements).to.equal(10);
-      expect(current.nDocumentedElements).to.equal(5);
-      expect(current.elementCoverage).to.equal((5/10 * 100).toFixed(2));
+      expect(current.nElements).to.equal(13);
+      expect(current.nDocumentedElements).to.equal(6);
+      expect(current.elementCoverage).to.equal((6/13 * 100).toFixed(2));
 
       //Assert methods coverage
       current = coverageClass.methodAnalysis;
@@ -99,15 +99,15 @@ describe('Apex Doc Parser', function(){
 
       //Assert property coverage
       current = coverageClass.propertyAnalysis;
-      expect(current.nElements).to.equal(2);
-      expect(current.nDocumentedElements).to.equal(1);
-      expect(current.elementCoverage).to.equal((1/2 * 100).toFixed(2));
+      expect(current.nElements).to.equal(4);
+      expect(current.nDocumentedElements).to.equal(2);
+      expect(current.elementCoverage).to.equal((2/4 * 100).toFixed(2));
 
       //Assert child class coverage
       current = coverageClass.childClasses[0];
-      expect(current.nElements).to.equal(3);
+      expect(current.nElements).to.equal(4);
       expect(current.nDocumentedElements).to.equal(1);
-      expect(current.elementCoverage).to.equal((1/3 * 100).toFixed(2));
+      expect(current.elementCoverage).to.equal((1/4 * 100).toFixed(2));
 
       //Assert child class method coverage
       current = coverageClass.childClasses[0].methodAnalysis;
@@ -123,7 +123,7 @@ describe('Apex Doc Parser', function(){
 
       //Assert child class property coverage
       current = coverageClass.childClasses[0].propertyAnalysis;
-      expect(current.nElements).to.equal(1);
+      expect(current.nElements).to.equal(2);
       expect(current.nDocumentedElements).to.equal(0);
       expect(current.elementCoverage).to.equal((0 * 100).toFixed(2));
     });

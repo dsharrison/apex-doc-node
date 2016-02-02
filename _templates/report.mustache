@@ -1,0 +1,150 @@
+{{#config.report.enable}}
+  <br/>
+  <div class="panel panel-default">
+    <div class="panel-heading">Documentation Coverage</div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              Class
+            </th>
+            <th>
+              Elements
+            </th>
+            <th>
+              Coverage
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#classes}}
+          <tr>
+            <td class="col-md-5">
+              <a  data-toggle="collapse" href="#{{name}}" aria-expanded="false" aria-controls="{{name}}">
+                {{name}}
+              </a>
+            </td>
+            <td class="col-md-1">
+              {{nDocumentedElements}}/{{nElements}}
+            </td>
+            <td class="col-md-6">
+              <div class="progress">
+                <div class="progress-bar progress-bar-{{#rating.good}}success{{/rating.good}}{{#rating.poor}}warning{{/rating.poor}}{{#rating.bad}}danger{{/rating.bad}}" role="progressbar" aria-valuenow="{{elementCoverage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{elementCoverage}}%">{{elementCoverage}}
+                </div>
+              </div>
+              <div class="collapse" id="{{name}}">
+                <table class="table">
+                  <tbody>
+                    {{#isDocumented}}
+                      <tr>
+                        <td class="col-md-2">
+                          Description
+                        </td>
+                        <td class="col-md-2">
+                          1/1
+                        </td>
+                        <td class="col-md-8">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                              100
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {{/isDocumented}}
+                    {{^isDocumented}}
+                      <tr>
+                        <td class="col-md-2">
+                          Description
+                        </td>
+                        <td class="col-md-2">
+                          0/1
+                        </td>
+                        <td class="col-md-8">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                              0
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {{/isDocumented}}
+                    {{#hasConstructors}}
+                      <tr>
+                        <td class="col-md-2">
+                          Constructors
+                        </td>
+                        <td class="col-md-2">
+                          {{constructorAnalysis.nDocumentedElements}}/{{constructorAnalysis.nElements}}
+                        </td>
+                        <td class="col-md-8">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-{{#constructorAnalysis.rating.good}}success{{/constructorAnalysis.rating.good}}{{#constructorAnalysis.rating.poor}}warning{{/constructorAnalysis.rating.poor}}{{#constructorAnalysis.rating.bad}}danger{{/constructorAnalysis.rating.bad}}" role="progressbar" aria-valuenow="{{constructorAnalysis.elementCoverage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{constructorAnalysis.elementCoverage}}%">
+                              {{constructorAnalysis.elementCoverage}}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {{/hasConstructors}}
+                    {{#hasProperties}}
+                      <tr>
+                        <td class="col-md-2">
+                          Properties
+                        </td>
+                        <td class="col-md-2">
+                          {{propertyAnalysis.nDocumentedElements}}/{{propertyAnalysis.nElements}}
+                        </td>
+                        <td class="col-md-8">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-{{#propertyAnalysis.rating.good}}success{{/propertyAnalysis.rating.good}}{{#propertyAnalysis.rating.poor}}warning{{/propertyAnalysis.rating.poor}}{{#propertyAnalysis.rating.bad}}danger{{/propertyAnalysis.rating.bad}}" role="progressbar" aria-valuenow="{{propertyAnalysis.elementCoverage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{propertyAnalysis.elementCoverage}}%">
+                              {{propertyAnalysis.elementCoverage}}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {{/hasProperties}}
+                    {{#hasMethods}}
+                      <tr>
+                        <td class="col-md-2">
+                          Methods
+                        </td>
+                        <td class="col-md-2">
+                          {{methodAnalysis.nDocumentedElements}}/{{methodAnalysis.nElements}}
+                        </td>
+                        <td class="col-md-8">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-{{#methodAnalysis.rating.good}}success{{/methodAnalysis.rating.good}}{{#methodAnalysis.rating.poor}}warning{{/methodAnalysis.rating.poor}}{{#methodAnalysis.rating.bad}}danger{{/methodAnalysis.rating.bad}}" role="progressbar" aria-valuenow="{{methodAnalysis.elementCoverage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{methodAnalysis.elementCoverage}}%">
+                              {{methodAnalysis.elementCoverage}}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {{/hasMethods}}
+                    {{#hasChildClasses}}
+                      <tr>
+                        <td class="col-md-2">
+                          Child Classes
+                        </td>
+                        <td class="col-md-2">
+                          {{childClassAnalysis.nDocumentedElements}}/{{childClassAnalysis.nElements}}
+                        </td>
+                        <td class="col-md-8">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-{{#childClassAnalysis.rating.good}}success{{/childClassAnalysis.rating.good}}{{#childClassAnalysis.rating.poor}}warning{{/childClassAnalysis.rating.poor}}{{#childClassAnalysis.rating.bad}}danger{{/childClassAnalysis.rating.bad}}" role="progressbar" aria-valuenow="{{childClassAnalysis.elementCoverage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{childClassAnalysis.elementCoverage}}%">
+                              {{childClassAnalysis.elementCoverage}}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    {{/hasChildClasses}}
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+          {{/classes}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{{/config.report.enable}}
