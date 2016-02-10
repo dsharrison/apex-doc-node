@@ -10,17 +10,22 @@ var mst_templates = {};
 var template_dir = getFilePath('/_templates/');
 
 var printStatusMessage = function(message) {
-  console.log('');
-  console.log('//');
-  console.log('// ' + message);
-  console.log('// --------------------------------------------------');
+  process.stdout.write('\n');
+  process.stdout.write('//\n');
+  process.stdout.write('// ' + message + '\n');
+  process.stdout.write('// --------------------------------------------------\n');
 }
 module.exports.printStatusMessage = printStatusMessage;
 
 var printSecondaryMessage = function(message) {
-  console.log('* ' + message);
+  process.stdout.write('* ' + message + '\n');
 }
 module.exports.printSecondaryMessage = printSecondaryMessage;
+
+var printProgressMessage = function(message) {
+  process.stdout.write('* ' + message + '\r');
+}
+module.exports.printProgressMessage = printProgressMessage;
 
 var writeResult = function(classModels) {
 
@@ -29,7 +34,7 @@ var writeResult = function(classModels) {
   helper.refreshFolder(docs_dir);
 
   mkdirp.sync(docs_dir);
-  
+
   if(config.data.report.enable != false) {
     printStatusMessage('Analyzing documentation');
     classModels = report.analyze(classModels);
@@ -53,8 +58,9 @@ var writeResult = function(classModels) {
 
   var html = Mustache.render(template, docPage, mst_templates);
   fs.writeFileSync(docs_dir + 'index.html', html);
-  printSecondaryMessage('Generated index.html');
+  //printSecondaryMessage('Generated index.html');
 
+  var progressMax = classModels.length;
   for(var i = 0; i < classModels.length; i++) {
     var currentClass = classModels[i];
     if(i > 0) {
@@ -67,7 +73,24 @@ var writeResult = function(classModels) {
 
     html = Mustache.render(template, docPage, mst_templates);
     fs.writeFileSync(docs_dir + name + '.html', html);
-    printSecondaryMessage('Generated ' + name + '.html');
+
+    var progress = 'Writing HTML [';
+    var progressNow = i + 1;
+    var progressPercent = ((progressNow / progressMax) * 100).toFixed(1);
+    progress += progressNow + '/' + progressMax + ' (' + progressPercent + '%) | ';
+
+    var progressIndicatorTotal = 50;
+    var filledIndicators = (progressIndicatorTotal * (progressPercent / 100)).toFixed(0);
+    var emptyIndicators = progressIndicatorTotal - filledIndicators;
+    for(var x = 0; x < filledIndicators; x++) {
+      progress += '=';
+    }
+    for(var x = 0; x < emptyIndicators; x++) {
+      progress += ' ';
+    }
+
+    progress += ']';
+    printProgressMessage(progress);
   }
 
 }
@@ -79,7 +102,7 @@ var copyResources = function() {
 
   var resources_dir = getFilePath('/_resources/');
   mkdirp.sync(docs_dir + 'resources/');
-  printStatusMessage('Copying resources from ' + resources_dir + ' to ' + docs_dir + 'resources/');
+  //printStatusMessage('Copying resources from ' + resources_dir + ' to ' + docs_dir + 'resources/');
 
   files = fs.readdirSync(resources_dir);
   files.forEach(function(file_name){

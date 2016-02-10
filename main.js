@@ -19,10 +19,28 @@ var run = function() {
 
   var classModels = [];
   var i = 0;
+  var progressMax = files.length / 2;
   files.forEach(function(file_name){
     if(file_name.endsWith('.cls')) {
       i++;
-      console.log('* Processing ' + i + ' of ' + (files.length / 2) + ': ' + file_name);
+      var progress = 'Processing Apex [';
+      var progressNow = i;
+      var progressPercent = ((progressNow / progressMax) * 100).toFixed(1);
+      progress += progressNow + '/' + progressMax + ' (' + progressPercent + '%) | ';
+
+      var progressIndicatorTotal = 50;
+      var filledIndicators = (progressIndicatorTotal * (progressPercent / 100)).toFixed(0);
+      var emptyIndicators = progressIndicatorTotal - filledIndicators;
+      for(var x = 0; x < filledIndicators; x++) {
+        progress += '=';
+      }
+      for(var x = 0; x < emptyIndicators; x++) {
+        progress += ' ';
+      }
+
+      progress += ']';
+      fileOutput.printProgressMessage(progress);
+
 
       // Read in the file and convert it to an array of strings that will allow
       // us to read line by line of the file.
@@ -34,6 +52,8 @@ var run = function() {
       }
     }
   });
+
+  process.stdout.write('\n');
 
   fileOutput.writeResult(classModels);
   fileOutput.copyResources();

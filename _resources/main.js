@@ -9,7 +9,6 @@
   var search_el = document.getElementById('search');
   search_el.addEventListener('keyup', function(e){
     var search_val = e.target.value;
-    console.log(search_val);
 
     var list = document.querySelectorAll('[data-define="class"]');
     Array.prototype.forEach.call(list, function(el, i){

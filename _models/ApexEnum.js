@@ -44,7 +44,6 @@ ApexEnum.prototype.parseName = function() {
   }
   if(name_line) {
     var index_l = name_line.indexOf(' ');
-    console.log('Index L: ' + index_l);
     if(index_l == -1) {
       this.name = name_line;
     }

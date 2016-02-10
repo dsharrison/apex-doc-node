@@ -166,12 +166,9 @@ var processFile = function(file_name, file_data) {
         var enumModel = new ApexEnumModel(classModel);
         enumModel.fillDetails(file_data_line, commentList, i);
 
-        console.log(file_data_line);
-
         while(!file_data_line.includes('}')) {
           i++;
           file_data_line = file_data_array[i];
-          console.log(file_data_line);
           var value_line = file_data_line.replace('}', '');
           value_line = value_line.trim();
           enumModel.addValue(value_line);
