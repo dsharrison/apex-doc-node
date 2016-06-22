@@ -7,7 +7,7 @@ var mkdirp = require('mkdirp');
 
 // Include your partials in this list for them to be loaded
 var mst_templates = {};
-var template_dir = getFilePath('/_templates/');
+var template_dir = config.template_dir || getFilePath('/_templates/');
 
 var printStatusMessage = function(message) {
   process.stdout.write('\n');
@@ -105,9 +105,9 @@ var copyResources = function() {
   //printStatusMessage('Copying resources from ' + resources_dir + ' to ' + docs_dir + 'resources/');
 
   files = fs.readdirSync(resources_dir);
-  files.forEach(function(file_name){
-   var file_data = fs.readFileSync(resources_dir + file_name);
-   fs.writeFileSync(docs_dir + 'resources/' + file_name, file_data);
+  files.forEach(function(file_name) {
+    var file_data = fs.readFileSync(resources_dir + file_name);
+    fs.writeFileSync(docs_dir + 'resources/' + file_name, file_data);
   });
 }
 module.exports.copyResources = copyResources;
@@ -120,8 +120,7 @@ var getTemplate = function(template_name) {
   }
   if(mst_templates[template_name]) {
     template = mst_templates[template_name];
-  }
-  else {
+  } else {
     template = fs.readFileSync(template_dir + template_name + '.mustache').toString();
     mst_templates[template_name] = template;
   }
@@ -130,7 +129,7 @@ var getTemplate = function(template_name) {
 
 var loadMustacheTemplates = function() {
   var files = fs.readdirSync(template_dir);
-  files.forEach(function(file_name){
+  files.forEach(function(file_name) {
     if(file_name.endsWith('.mustache')) {
       file_name = file_name.substring(0, file_name.length - 9);
     }

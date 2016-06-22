@@ -128,8 +128,7 @@ var processFile = function(file_name, file_data) {
       // If we have a parent, add this class to it. Otherwise set this as the parent
       if(classModelParent) {
         classModelParent.addChildClass(newClassModel);
-      }
-      else {
+      } else {
         classModelParent = newClassModel;
       }
       commentList.clear();
@@ -152,11 +151,11 @@ var processFile = function(file_name, file_data) {
 
     // handle set & get within the property
     if(file_data_line.includes(' get ') ||
-        file_data_line.includes(' set ') ||
-        file_data_line.includes(' get;') ||
-        file_data_line.includes(' set;') ||
-        file_data_line.includes(' get{') ||
-        file_data_line.includes(' set{')) {
+      file_data_line.includes(' set ') ||
+      file_data_line.includes(' get;') ||
+      file_data_line.includes(' set;') ||
+      file_data_line.includes(' get{') ||
+      file_data_line.includes(' set{')) {
       continue;
     }
 
@@ -176,17 +175,14 @@ var processFile = function(file_name, file_data) {
 
         classModel.addEnum(enumModel);
         commentList.clear();
-      }
-
-      else {
+      } else {
         // must be a property
         var propertyModel = new ApexPropertyModel();
         propertyModel.fillDetails(file_data_line, commentList, i);
         classModel.addProperty(propertyModel);
         commentList.clear();
       }
-    }
-    else {
+    } else {
       commentList.clear();
     }
   }

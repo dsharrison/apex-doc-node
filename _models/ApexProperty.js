@@ -1,11 +1,9 @@
 var helper = require('../_util/helper');
 
-var tokens = [
-  {
-    'name': '@description',
-    'type': 'single'
-  }
-]
+var tokens = [{
+  'name': '@description',
+  'type': 'single'
+}]
 
 // Constructor
 function ApexProperty() {
