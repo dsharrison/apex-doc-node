@@ -17,6 +17,7 @@ function ApexClass(classModelParent) {
   this.hasConstructors = false;
   this.properties = [];
   this.hasProperties = false;
+  this.group = 'Ungrouped';
 }
 
 var tokens = [{

@@ -27,7 +27,7 @@ var printProgressMessage = function(message) {
 }
 module.exports.printProgressMessage = printProgressMessage;
 
-var writeResult = function(classModels) {
+var writeResult = function(classesByGroup) {
 
   var docs_dir = config.data.target;
 
@@ -37,12 +37,12 @@ var writeResult = function(classModels) {
 
   if(config.data.report.enable != false) {
     printStatusMessage('Analyzing documentation');
-    classModels = report.analyze(classModels);
+    //classModels = report.analyze(classModels);
   }
 
   if(config.data.json != false) {
     printStatusMessage('Writing raw data');
-    fs.writeFileSync(docs_dir + 'output.json', JSON.stringify(classModels, null, '  '));
+    fs.writeFileSync(docs_dir + 'output.json', JSON.stringify(classesByGroup, null, '  '));
     printSecondaryMessage('JSON result written to ' + docs_dir + 'output.json');
   }
 
@@ -51,7 +51,25 @@ var writeResult = function(classModels) {
   loadMustacheTemplates();
 
   var docPage = {};
-  docPage.classes = classModels;
+
+  var classGroups = [];
+  for(var group in classesByGroup) {
+
+    var classGroup = {
+      label: group,
+      classes: []
+    };
+
+    if(classesByGroup.hasOwnProperty(group) && Array.isArray(classesByGroup[group])) {
+      classesByGroup[group].forEach(function(currentClass, index, array) {
+        classGroup.classes.push(currentClass);
+      });
+
+      classGroups.push(classGroup);
+    }
+  }
+
+  docPage.classGroups = classGroups;
   docPage.config = config.data;
 
   var template = getTemplate('layout');
@@ -60,37 +78,43 @@ var writeResult = function(classModels) {
   fs.writeFileSync(docs_dir + 'index.html', html);
   //printSecondaryMessage('Generated index.html');
 
-  var progressMax = classModels.length;
-  for(var i = 0; i < classModels.length; i++) {
-    var currentClass = classModels[i];
-    if(i > 0) {
-      classModels[i - 1].isActive = false;
+  var progressMax = classesByGroup.totalClasses;
+
+  for(var group in classesByGroup) {
+    if(classesByGroup.hasOwnProperty(group) && Array.isArray(classesByGroup[group])) {
+      var classes = classesByGroup[group];
+
+      mkdirp.sync(docs_dir + group);
+
+      classes.forEach(function(currentClass, index, array) {
+        docPage.currentClass = currentClass;
+        docPage.currentClass.isActive = true;
+
+        html = Mustache.render(template, docPage, mst_templates);
+
+        currentClass.isActive = false;
+
+        fs.writeFileSync(docs_dir + group + '/' + currentClass.name + '.html', html);
+
+        var progress = 'Writing HTML [';
+        var progressNow = index + 1;
+        var progressPercent = ((progressNow / progressMax) * 100).toFixed(1);
+        progress += progressNow + '/' + progressMax + ' (' + progressPercent + '%) | ';
+
+        var progressIndicatorTotal = 50;
+        var filledIndicators = (progressIndicatorTotal * (progressPercent / 100)).toFixed(0);
+        var emptyIndicators = progressIndicatorTotal - filledIndicators;
+        for(var x = 0; x < filledIndicators; x++) {
+          progress += '=';
+        }
+        for(var x = 0; x < emptyIndicators; x++) {
+          progress += ' ';
+        }
+
+        progress += ']';
+        printProgressMessage(progress);
+      });
     }
-    classModels[i].isActive = true;
-    var name = currentClass.name;
-
-    docPage.currentClass = currentClass;
-
-    html = Mustache.render(template, docPage, mst_templates);
-    fs.writeFileSync(docs_dir + name + '.html', html);
-
-    var progress = 'Writing HTML [';
-    var progressNow = i + 1;
-    var progressPercent = ((progressNow / progressMax) * 100).toFixed(1);
-    progress += progressNow + '/' + progressMax + ' (' + progressPercent + '%) | ';
-
-    var progressIndicatorTotal = 50;
-    var filledIndicators = (progressIndicatorTotal * (progressPercent / 100)).toFixed(0);
-    var emptyIndicators = progressIndicatorTotal - filledIndicators;
-    for(var x = 0; x < filledIndicators; x++) {
-      progress += '=';
-    }
-    for(var x = 0; x < emptyIndicators; x++) {
-      progress += ' ';
-    }
-
-    progress += ']';
-    printProgressMessage(progress);
   }
 
 }
@@ -102,7 +126,6 @@ var copyResources = function() {
 
   var resources_dir = getFilePath('/_resources/');
   mkdirp.sync(docs_dir + 'resources/');
-  //printStatusMessage('Copying resources from ' + resources_dir + ' to ' + docs_dir + 'resources/');
 
   files = fs.readdirSync(resources_dir);
   files.forEach(function(file_name) {

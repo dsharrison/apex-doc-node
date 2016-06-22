@@ -1,19 +1,22 @@
 {
-  "source" : "_test/data/",
-  "target" : "./docs/",
-  "company" : "Your Company Name",
-  "email" : "email@your_company.com",
-  "scopes" : [
+  "source": "_test/data/",
+  "target": "./docs/",
+  "company": "Your Company Name",
+  "email": "email@your_company.com",
+  "data": {
+    "json": true
+  },
+  "scopes": [
     "global",
     "webservice",
     "public",
     "private"
   ],
-  "report" : {
-    "enable" : true,
-    "ratings" : {
-      "good" : 90,
-      "poor" : 70
+  "report": {
+    "enable": true,
+    "ratings": {
+      "good": 90,
+      "poor": 70
     }
   }
 }

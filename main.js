@@ -12,15 +12,17 @@ var run = function() {
   var files;
   try {
     files = fs.readdirSync(config.data.source);
-  }
-  catch(err) {
+  } catch(err) {
     throw err;
   }
 
   var classModels = [];
+  var classesByGroup = {
+    totalClasses: 0
+  };
   var i = 0;
   var progressMax = files.length / 2;
-  files.forEach(function(file_name){
+  files.forEach(function(file_name) {
     if(file_name.endsWith('.cls')) {
       i++;
       var progress = 'Processing Apex [';
@@ -49,13 +51,24 @@ var run = function() {
 
       if(classModel) {
         classModels.push(classModel);
+
+        if(classModel.group) {
+          classesByGroup[classModel.group] = classesByGroup[classModel.group] || [];
+          classesByGroup[classModel.group].push(classModel);
+        }
+        else {
+          classesByGroup['Ungrouped'] = classesByGroup['Ungrouped'] || [];
+          classesByGroup['Ungrouped'].push(classModel);
+        }
+        classesByGroup.totalClasses = classesByGroup.totalClasses + 1;
       }
     }
   });
 
   process.stdout.write('\n');
 
-  fileOutput.writeResult(classModels);
+  //fileOutput.writeResult(classModels);
+  fileOutput.writeResult(classesByGroup);
   fileOutput.copyResources();
 
   console.log('');
