@@ -37,13 +37,14 @@ var writeResult = function(classesByGroup) {
 
   if(config.data.report.enable != false) {
     printStatusMessage('Analyzing documentation');
-    classModels = report.analyze(classModels);
+    //TODO: allow this to work with the new class grouping
+    //classModels = report.analyze(classModels);
   }
 
   if(config.data.json != false) {
     printStatusMessage('Writing raw data');
-    fs.writeFileSync(docs_dir + 'output.json', JSON.stringify(classesByGroup, null, '  '));
-    printSecondaryMessage('JSON result written to ' + docs_dir + 'output.json');
+    fs.writeFileSync(docs_dir + 'apex-classes.json', JSON.stringify(classesByGroup, null, '  '));
+    printSecondaryMessage('JSON result written to ' + docs_dir + 'apex-classes.json');
   }
 
   if(config.data.html != false) {
