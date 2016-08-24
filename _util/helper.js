@@ -33,7 +33,8 @@ var parseTokens = function(model, tokens, commentList) {
       if(!model[x_token_name]) {
         model[x_token_name] = [];
       }
-    } else if(x_token_obj['type'] == 'array-typed') {
+    }
+    else if(x_token_obj['type'] == 'array-typed') {
       if(!model[x_token_name]) {
         var token_model = x_token_obj['model'];
         if(typeof this[token_model] === 'undefined') {
@@ -42,7 +43,8 @@ var parseTokens = function(model, tokens, commentList) {
         model[x_token_name] = null;
       }
 
-    } else {
+    }
+    else {
       model[x_token_name] = null;
     }
   }
@@ -72,7 +74,8 @@ var parseTokens = function(model, tokens, commentList) {
             model[token_name] = [];
           }
           model[token_name].push(comment_trimmed);
-        } else if(x_token_obj['type'] == 'array-typed') {
+        }
+        else if(x_token_obj['type'] == 'array-typed') {
           if(!model[token_name]) {
             var token_model = token_obj['model'];
             if(typeof this[token_model] === 'undefined') {
@@ -82,7 +85,8 @@ var parseTokens = function(model, tokens, commentList) {
           }
           model[token_name].push(new this[token_model](comment_trimmed));
 
-        } else {
+        }
+        else {
           model[token_name] = comment_trimmed;
         }
         inDescription = false;
@@ -103,23 +107,28 @@ var parseTokens = function(model, tokens, commentList) {
         if(model[token_name][model[token_name.length - 1]]) {
           model[token_name][model[token_name.length - 1]] += comment.trim();
         }
-      } else if(token_obj && token_obj['type'] == 'array-typed') {
+      }
+      else if(token_obj && token_obj['type'] == 'array-typed') {
         if(model[token_name][model[token_name].length - 1]) {
           model[token_name][model[token_name].length - 1].addLine(comment.trim());
         }
-      } else if(token_obj && token_obj['type'] == 'single-raw') {
+      }
+      else if(token_obj && token_obj['type'] == 'single-raw') {
         if(!model[token_name]) {
           model[token_name] = '';
-        } else {
+        }
+        else {
           model[token_name] += '\n';
         }
         model[token_name] += comment;
-      } else {
+      }
+      else {
         comment = comment.trim();
         if(comment.length) {
           if(!model[token_name]) {
             model[token_name] = '';
-          } else {
+          }
+          else {
             model[token_name] += ' ';
           }
           model[token_name] += comment;
@@ -153,7 +162,8 @@ var getPreviousWord = function(str, index) {
           continue;
         }
         index_l = index_f + 1;
-      } else if(str.charAt(index_f) == ' ') {
+      }
+      else if(str.charAt(index_f) == ' ') {
         index_f++;
         break;
       }
@@ -204,7 +214,8 @@ var deleteFolderRecursive = function(path) {
       var curPath = path + "/" + file;
       if(fs.lstatSync(curPath).isDirectory()) { // recurse
         deleteFolderRecursive(curPath);
-      } else { // delete file
+      }
+      else { // delete file
         fs.unlinkSync(curPath);
       }
     });
@@ -216,7 +227,8 @@ var refreshFolder = function(path) {
   if(fs.existsSync(path + 'index.html')) {
     deleteFolderRecursive(path);
     fs.mkdirSync(path);
-  } else {
+  }
+  else {
     console.log('* Not clearing your docs directory since no index.html was found.');
   }
 }

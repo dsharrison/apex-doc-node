@@ -4,7 +4,8 @@
   "company": "Your Company Name",
   "email": "email@your_company.com",
   "data": {
-    "json": true
+    "json": true,
+    "html": true,
   },
   "scopes": [
     "global",

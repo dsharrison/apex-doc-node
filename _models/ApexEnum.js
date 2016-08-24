@@ -44,10 +44,12 @@ ApexEnum.prototype.parseName = function() {
     var index_l = name_line.indexOf(' ');
     if(index_l == -1) {
       this.name = name_line;
-    } else {
+    }
+    else {
       try {
         this.name = name_line.substring(0, index_l);
-      } catch(err) {
+      }
+      catch(err) {
         this.name = name_line.substring(name_line.lastIndexOf(' ') + 1);
       }
     }

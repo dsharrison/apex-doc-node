@@ -21,7 +21,8 @@ var addData = function(config_param) {
     if(typeof config_add !== 'object') {
       config_add = JSON.parse(config_add);
     }
-  } catch(e) {
+  }
+  catch(e) {
     throw('Invalid argument: Expected the third argument to be configuration data passed as JSON. Got: ' + config_param);
   }
   Object.keys(config_add).forEach(function(key) {

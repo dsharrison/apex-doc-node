@@ -191,9 +191,11 @@ function assessRating(elementCoverage) {
 
   if(elementCoverage >= config.data.report.ratings.good) {
     rating.good = true;
-  } else if(elementCoverage >= config.data.report.ratings.poor) {
+  }
+  else if(elementCoverage >= config.data.report.ratings.poor) {
     rating.poor = true;
-  } else {
+  }
+  else {
     rating.bad = true;
   }
 

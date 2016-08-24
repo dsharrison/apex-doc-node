@@ -12,7 +12,8 @@ var run = function() {
   var files;
   try {
     files = fs.readdirSync(config.data.source);
-  } catch(err) {
+  }
+  catch(err) {
     throw err;
   }
 

@@ -37,7 +37,7 @@ var writeResult = function(classesByGroup) {
 
   if(config.data.report.enable != false) {
     printStatusMessage('Analyzing documentation');
-    //classModels = report.analyze(classModels);
+    classModels = report.analyze(classModels);
   }
 
   if(config.data.json != false) {
@@ -46,77 +46,77 @@ var writeResult = function(classesByGroup) {
     printSecondaryMessage('JSON result written to ' + docs_dir + 'output.json');
   }
 
-  printStatusMessage('Generating HTML files');
+  if(config.data.html != false) {
+    printStatusMessage('Generating HTML files');
 
-  loadMustacheTemplates();
+    loadMustacheTemplates();
 
-  var docPage = {};
+    var docPage = {};
 
-  var classGroups = [];
-  for(var group in classesByGroup) {
+    var classGroups = [];
+    for(var group in classesByGroup) {
 
-    var classGroup = {
-      label: group,
-      classes: []
-    };
+      var classGroup = {
+        label: group,
+        classes: []
+      };
 
-    if(classesByGroup.hasOwnProperty(group) && Array.isArray(classesByGroup[group])) {
-      classesByGroup[group].forEach(function(currentClass, index, array) {
-        classGroup.classes.push(currentClass);
-      });
+      if(classesByGroup.hasOwnProperty(group) && Array.isArray(classesByGroup[group])) {
+        classesByGroup[group].forEach(function(currentClass, index, array) {
+          classGroup.classes.push(currentClass);
+        });
 
-      classGroups.push(classGroup);
+        classGroups.push(classGroup);
+      }
+    }
+
+    docPage.classGroups = classGroups;
+    docPage.config = config.data;
+
+    var template = getTemplate('layout');
+
+    var html = Mustache.render(template, docPage, mst_templates);
+    fs.writeFileSync(docs_dir + 'index.html', html);
+
+    var progressMax = classesByGroup.totalClasses;
+
+    for(var group in classesByGroup) {
+      if(classesByGroup.hasOwnProperty(group) && Array.isArray(classesByGroup[group])) {
+        var classes = classesByGroup[group];
+
+        mkdirp.sync(docs_dir + group);
+
+        classes.forEach(function(currentClass, index, array) {
+          docPage.currentClass = currentClass;
+          docPage.currentClass.isActive = true;
+
+          html = Mustache.render(template, docPage, mst_templates);
+
+          currentClass.isActive = false;
+
+          fs.writeFileSync(docs_dir + group + '/' + currentClass.name + '.html', html);
+
+          var progress = 'Writing HTML [';
+          var progressNow = index + 1;
+          var progressPercent = ((progressNow / progressMax) * 100).toFixed(1);
+          progress += progressNow + '/' + progressMax + ' (' + progressPercent + '%) | ';
+
+          var progressIndicatorTotal = 50;
+          var filledIndicators = (progressIndicatorTotal * (progressPercent / 100)).toFixed(0);
+          var emptyIndicators = progressIndicatorTotal - filledIndicators;
+          for(var x = 0; x < filledIndicators; x++) {
+            progress += '=';
+          }
+          for(var x = 0; x < emptyIndicators; x++) {
+            progress += ' ';
+          }
+
+          progress += ']';
+          printProgressMessage(progress);
+        });
+      }
     }
   }
-
-  docPage.classGroups = classGroups;
-  docPage.config = config.data;
-
-  var template = getTemplate('layout');
-
-  var html = Mustache.render(template, docPage, mst_templates);
-  fs.writeFileSync(docs_dir + 'index.html', html);
-  //printSecondaryMessage('Generated index.html');
-
-  var progressMax = classesByGroup.totalClasses;
-
-  for(var group in classesByGroup) {
-    if(classesByGroup.hasOwnProperty(group) && Array.isArray(classesByGroup[group])) {
-      var classes = classesByGroup[group];
-
-      mkdirp.sync(docs_dir + group);
-
-      classes.forEach(function(currentClass, index, array) {
-        docPage.currentClass = currentClass;
-        docPage.currentClass.isActive = true;
-
-        html = Mustache.render(template, docPage, mst_templates);
-
-        currentClass.isActive = false;
-
-        fs.writeFileSync(docs_dir + group + '/' + currentClass.name + '.html', html);
-
-        var progress = 'Writing HTML [';
-        var progressNow = index + 1;
-        var progressPercent = ((progressNow / progressMax) * 100).toFixed(1);
-        progress += progressNow + '/' + progressMax + ' (' + progressPercent + '%) | ';
-
-        var progressIndicatorTotal = 50;
-        var filledIndicators = (progressIndicatorTotal * (progressPercent / 100)).toFixed(0);
-        var emptyIndicators = progressIndicatorTotal - filledIndicators;
-        for(var x = 0; x < filledIndicators; x++) {
-          progress += '=';
-        }
-        for(var x = 0; x < emptyIndicators; x++) {
-          progress += ' ';
-        }
-
-        progress += ']';
-        printProgressMessage(progress);
-      });
-    }
-  }
-
 }
 module.exports.writeResult = writeResult;
 
@@ -143,7 +143,8 @@ var getTemplate = function(template_name) {
   }
   if(mst_templates[template_name]) {
     template = mst_templates[template_name];
-  } else {
+  }
+  else {
     template = fs.readFileSync(template_dir + template_name + '.mustache').toString();
     mst_templates[template_name] = template;
   }
