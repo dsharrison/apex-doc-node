@@ -5,7 +5,7 @@
   "email": "email@your_company.com",
   "data": {
     "json": true,
-    "html": true,
+    "html": true
   },
   "scopes": [
     "global",
