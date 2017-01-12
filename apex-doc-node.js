@@ -6,6 +6,6 @@ global.getFilePath = function(local_path){
   return appRoot + local_path;
 }
 module.exports = {
-  config : require(getFilePath('/_util/config')),
-  run : require(getFilePath('/main'))
+  config : require(getFilePath('/lib/util/config')),
+  run : require(getFilePath('/lib/main'))
 }

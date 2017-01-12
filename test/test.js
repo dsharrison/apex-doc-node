@@ -1,15 +1,15 @@
 var expect    = require('chai').expect;
 var app       = require('../apex-doc-node');
-var parser    = require('../_lib/parser');
+var parser    = require('../lib/parser');
 var fs        = require('fs');
-var config    = require('../_util/config');
-var report    = require('../_lib/report');
+var config    = require('../lib/util/config');
+var report    = require('../lib/report');
 
 describe('Apex Doc Parser', function(){
   describe('Single class and subclass parse', function(){
 
     // Read in test file
-    var file_data = fs.readFileSync(getFilePath('/_test/data/TestClass.cls'));
+    var file_data = fs.readFileSync(getFilePath('/test/data/TestClass.cls'));
 
     // Setup config
     config.data.scopes = ['global', 'webservice', 'public'];
@@ -71,7 +71,7 @@ describe('Apex Doc Parser', function(){
     });
 
     // Read in test file
-    file_data = fs.readFileSync(getFilePath('/_test/data/TestCoverage.cls'));
+    file_data = fs.readFileSync(getFilePath('/test/data/TestCoverage.cls'));
 
     // Run parser
     var coverageClass = parser.processFile('TestCoverage.cls', file_data);
