@@ -1,13 +1,13 @@
 {
-  "source": "_test/data/",
-  "target": "./docs/",
-  "company": "Your Company Name",
-  "email": "email@your_company.com",
+  "source" : "test/data/",
+  "target" : "./docs/",
+  "company" : "Your Company Name",
+  "email" : "email@your_company.com",
   "data": {
     "json": true,
     "html": true
   },
-  "scopes": [
+  "scopes" : [
     "global",
     "webservice",
     "public",
