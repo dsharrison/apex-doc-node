@@ -1,6 +1,6 @@
 {
   "source" : "test/data/",
-  "target" : "./output/",
+  "target" : "./docs/",
   "company" : "Your Company Name",
   "email" : "email@your_company.com",
   "data": {

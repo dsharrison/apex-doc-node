@@ -4,6 +4,7 @@
   "description": "A node.js implementation of ApexDoc.",
   "main": "apex-doc-node.js",
   "scripts": {
+    "document": "node ./lib/run.js",
     "test": "mocha ./test/*.js"
   },
   "repository": {

@@ -1,7 +1,7 @@
 <nav id="sidebar" class="nav">
   <input type="text" placeholder="Filter by name..." id="search" class="form-control">
   {{#currentClass}}
-    <a href="index.html" class="">Home</a></li>
+    <a href="../index.html" class="">Home</a></li>
   {{/currentClass}}
   {{^currentClass}}
     <a href="index.html" class="active">Home</a>
@@ -12,14 +12,21 @@
       {{# classes}}
         {{#isActive}}
           <li class="active" data-id="{{name}}" data-define="class">
-            <a href="../{{label}}/{{name}}.html">{{name}}</a>
+            <a href="javascript:void(0);">{{name}}</a>
           </li>
         {{/isActive}}
         {{^isActive}}
           <li data-id="{{name}}" data-define="class">
-           <a href="../{{label}}/{{name}}.html">{{name}}</a>
+           {{#currentClass.name}}
+              <a href="../{{label}}/{{name}}.html">{{name}}</a>
+           {{/currentClass.name}}
+           {{^currentClass.name}}
+            <a href="./{{label}}/{{name}}.html">{{name}}</a>
+           {{/currentClass.name}}
          </li>
         {{/isActive}}
+        <!-- LABEL: {{name}} -->
+        <!-- NAME: {{name}} -->
       {{/ classes}}
     </ul>
   {{/classGroups}}
