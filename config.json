@@ -3,17 +3,21 @@
   "target" : "./output/",
   "company" : "Your Company Name",
   "email" : "email@your_company.com",
+  "data": {
+    "json": true,
+    "html": true
+  },
   "scopes" : [
     "global",
     "webservice",
     "public",
     "private"
   ],
-  "report" : {
-    "enable" : true,
-    "ratings" : {
-      "good" : 90,
-      "poor" : 70
+  "report": {
+    "enable": true,
+    "ratings": {
+      "good": 90,
+      "poor": 70
     }
   }
 }

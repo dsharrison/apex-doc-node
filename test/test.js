@@ -5,8 +5,8 @@ var fs        = require('fs');
 var config    = require('../lib/util/config');
 var report    = require('../lib/report');
 
-describe('Apex Doc Parser', function(){
-  describe('Single class and subclass parse', function(){
+describe('Apex Doc Parser', function() {
+  describe('Single class and subclass parse', function() {
 
     // Read in test file
     var file_data = fs.readFileSync(getFilePath('/test/data/TestClass.cls'));
@@ -17,13 +17,13 @@ describe('Apex Doc Parser', function(){
     // Run parser
     var classModel = parser.processFile('TestClass.cls', file_data);
 
-    it('parses parent class information', function(){
+    it('parses parent class information', function() {
 
       // Parent Class
       expect(classModel).to.not.equal(null);
       expect(classModel.name).to.equal('TestClass');
     });
-    it('parses parent class properties', function(){
+    it('parses parent class properties', function() {
       // Parent Class Properties
       expect(classModel.properties.length).to.equal(2);
       var apexProperty = classModel.properties[0];
@@ -38,7 +38,7 @@ describe('Apex Doc Parser', function(){
       expect(apexEnum.className).to.equal('Seasons');
       expect(apexEnum.values.length).to.equal(4);
     });
-    it('parses parent class constructors and methods', function(){
+    it('parses parent class constructors and methods', function() {
 
       // Parent Class Constructors
       expect(classModel.constructors.length).to.equal(1);
@@ -62,7 +62,7 @@ describe('Apex Doc Parser', function(){
       expect(apexMethodParam.name).to.equal('notUsed');
       expect(apexMethodParam.description).to.equal('This parameter is not used.');
     });
-    it('parses child class information', function(){
+    it('parses child class information', function() {
       // Child classes
       expect(classModel.childClasses.length).to.equal(1);
       var childClass = classModel.childClasses[0];
@@ -76,44 +76,44 @@ describe('Apex Doc Parser', function(){
     // Run parser
     var coverageClass = parser.processFile('TestCoverage.cls', file_data);
 
-    it('analyzes documentation coverage', function(){
+    it('analyzes documentation coverage', function() {
       coverageClass = report.analyzeClass(coverageClass);
 
       //Assert class coverage
       var current = coverageClass;
       expect(current.nElements).to.equal(13);
       expect(current.nDocumentedElements).to.equal(6);
-      expect(current.elementCoverage).to.equal((6/13 * 100).toFixed(2));
+      expect(current.elementCoverage).to.equal((6 / 13 * 100).toFixed(2));
 
       //Assert methods coverage
       current = coverageClass.methodAnalysis;
       expect(current.nElements).to.equal(2);
       expect(current.nDocumentedElements).to.equal(1);
-      expect(current.elementCoverage).to.equal((1/2 * 100).toFixed(2));
+      expect(current.elementCoverage).to.equal((1 / 2 * 100).toFixed(2));
 
       //Assert constructor coverage
       current = coverageClass.constructorAnalysis;
       expect(current.nElements).to.equal(2);
       expect(current.nDocumentedElements).to.equal(1);
-      expect(current.elementCoverage).to.equal((1/2 * 100).toFixed(2));
+      expect(current.elementCoverage).to.equal((1 / 2 * 100).toFixed(2));
 
       //Assert property coverage
       current = coverageClass.propertyAnalysis;
       expect(current.nElements).to.equal(4);
       expect(current.nDocumentedElements).to.equal(2);
-      expect(current.elementCoverage).to.equal((2/4 * 100).toFixed(2));
+      expect(current.elementCoverage).to.equal((2 / 4 * 100).toFixed(2));
 
       //Assert child class coverage
       current = coverageClass.childClasses[0];
       expect(current.nElements).to.equal(4);
       expect(current.nDocumentedElements).to.equal(1);
-      expect(current.elementCoverage).to.equal((1/4 * 100).toFixed(2));
+      expect(current.elementCoverage).to.equal((1 / 4 * 100).toFixed(2));
 
       //Assert child class method coverage
       current = coverageClass.childClasses[0].methodAnalysis;
       expect(current.nElements).to.equal(1);
       expect(current.nDocumentedElements).to.equal(1);
-      expect(current.elementCoverage).to.equal((1/1 * 100).toFixed(2));
+      expect(current.elementCoverage).to.equal((1 / 1 * 100).toFixed(2));
 
       //Assert child class constructor coverage
       current = coverageClass.childClasses[0].constructorAnalysis;

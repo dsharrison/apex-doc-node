@@ -2,6 +2,7 @@
  * This is my test class declaration.
  * @author  Derrek Harrison
  * @date    1-1-2014
+ * @group   Tests
  */
 public class TestClass {
 

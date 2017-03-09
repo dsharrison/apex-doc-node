@@ -1,6 +1,6 @@
 {
   "name": "apex-doc-node",
-  "version": "0.0.15",
+  "version": "0.1.1",
   "description": "A node.js implementation of ApexDoc.",
   "main": "apex-doc-node.js",
   "scripts": {
@@ -18,6 +18,9 @@
   "homepage": "https://github.com/dsharrison/apex-doc-node",
   "devDependencies": {
     "chai": "^3.4.1",
+    "grunt": "^1.0.1",
+    "grunt-jsbeautifier": "^0.2.13",
+    "load-grunt-tasks": "^3.5.2",
     "mocha": "^2.3.4"
   },
   "dependencies": {
