@@ -29,7 +29,13 @@ module.exports = grunt => {
           endWithNewline: true
         }
       }
+    },
+    jshint: {
+      files: ["*.js", "_lib/**/*.js", "_models/**/*.js", "_test/**/*.js", "_util/**/*.js"],
+      options: {
+        node: true
+      }
     }
   });
-  grunt.registerTask('default', ['jsbeautifier']);
+  grunt.registerTask('default', ['jshint', 'jsbeautifier']);
 };
