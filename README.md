@@ -1,25 +1,24 @@
 # apex-doc-node
 
-This project is a node.js implementation of the [ApexDoc](https://github.com/SalesforceFoundation/ApexDoc) project. The project aims to provide a documentation frame work for development on the force.com platform.
+This project is a node.js implementation of the [ApexDoc](https://github.com/SalesforceFoundation/ApexDoc) project. The project aims to provide a documentation frame work for development on the force.com platform. To run this from a grunt build use [grunt-apex-doc](https://github.com/dsharrison/grunt-apex-doc).
 
 ## Project Status
 
 [![Build Status](https://travis-ci.org/dsharrison/apex-doc-node.svg?branch=master)](https://travis-ci.org/dsharrison/apex-doc-node)
 
-This project is currently in early alpha so bugs may be encountered. A test suite has not yet been implemented and major changes may be made to the project structure prior to the 1.0.0 release. Additionally, this project does not yet have feature parity with the Java ApexDoc and is missing the following notable features:
+This project is currently in early alpha so bugs may be encountered (feel free to file an issue!). A complete test suite has not yet been implemented and major changes may be made to the project structure prior to the 1.0.0 release. Additionally, this project does not yet have feature parity with the Java ApexDoc and is missing the following notable features:
 
 - Command-line arguments
-- Including `webservice` scope in `global`
-- Class groups
-- Class group content
+- Including `webservice` scope in `global` (IN TESTING)
+- Class groups (IN TESTING)
+- Class group content (IN TESTING)
 
 ## To Do
 
 The next steps for this project will be to support the following:
 
 - Command-line arguments to override config.json settings
-- A grunt wrapper to allow for inclusion in build tasks
-- Support for template overrides
+- Support for local template overrides
 - SASS compilation to allow for easier styling
 
 ## Usage
